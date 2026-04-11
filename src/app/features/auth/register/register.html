@@ -1,0 +1,62 @@
+<div class="login-container">
+  <div class="login-header">
+    <h2>Create Account</h2>
+    <p>Join our healthcare community today.</p>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="input-group">
+      <label>Full Name</label>
+      <input type="text" formControlName="name" placeholder="Aya Abdulaziz"
+        [class.error-input]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+      <span class="error-msg"
+        *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        <ng-container *ngIf="registerForm.get('name')?.errors?.['required']">Full name is required.</ng-container>
+        <ng-container *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters.</ng-container>
+      </span>
+    </div>
+
+    <div class="input-group">
+      <label>Email Address</label>
+      <input type="email" formControlName="email" placeholder="name@example.com"
+        [class.error-input]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <span class="error-msg"
+        *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <ng-container *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</ng-container>
+        <ng-container *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</ng-container>
+      </span>
+    </div>
+
+    <div class="input-group">
+      <label>Phone Number</label>
+      <input type="text" formControlName="phone" placeholder="01xxxxxxxxx"
+        [class.error-input]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+      <span class="error-msg"
+        *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+        <ng-container *ngIf="registerForm.get('phone')?.errors?.['required']">Phone number is required.</ng-container>
+        <ng-container *ngIf="registerForm.get('phone')?.errors?.['pattern']">Enter a valid 11-digit phone number.</ng-container>
+      </span>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="••••••••"
+        [class.error-input]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      <span class="error-msg"
+        *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <ng-container *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</ng-container>
+        <ng-container *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</ng-container>
+      </span>
+    </div>
+
+    <button type="submit" class="btn-login" [disabled]="registerForm.invalid">
+      Sign Up
+    </button>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a [routerLink]="['/auth/login']">Login</a></p>
+      <p><a [routerLink]="['/auth/forgot-password']" class="forgot-link">Forgot Password?</a></p>
+    </div>
+  </form>
+</div>

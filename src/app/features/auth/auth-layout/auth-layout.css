@@ -1,0 +1,109 @@
+/* ===== WRAPPER ===== */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #EDE4F3 0%, #F5EFF9 50%, #FDFCFF 100%);
+  padding: 20px;
+}
+
+/* ===== CARD ===== */
+.auth-card {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  max-width: 1050px;
+  min-height: 580px;
+  height: 82vh;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow:
+    0 30px 80px rgba(92, 45, 110, 0.16),
+    0 8px 24px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+/* ===== LEFT: ANIMATION SIDE ===== */
+.animation-side {
+  flex: 1.1;
+  background: linear-gradient(160deg, #5C2D6E 0%, #3D1A4A 45%, #2A0F35 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.animation-side::before {
+  content: '';
+  position: absolute;
+  width: 320px; height: 320px;
+  background: rgba(155, 114, 176, 0.12);
+  border-radius: 50%;
+  top: -100px; right: -100px;
+}
+
+.animation-side::after {
+  content: '';
+  position: absolute;
+  width: 280px; height: 280px;
+  background: rgba(196, 168, 216, 0.08);
+  border-radius: 50%;
+  bottom: -70px; left: -70px;
+}
+
+.lottie-box {
+  width: 85%;
+  max-width: 400px;
+  z-index: 1;
+  /* Shift teal/cyan lottie toward purple tones */
+  filter: hue-rotate(88deg) saturate(0.85) brightness(1.05);
+  opacity: 0.5;
+}
+
+.brand-text {
+  text-align: center;
+  color: white;
+  z-index: 1;
+  margin-top: 10px;
+}
+
+.brand-text h2 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+
+.brand-text p {
+  font-size: 0.88rem;
+  opacity: 0.72;
+}
+
+/* ===== RIGHT: FORM SIDE ===== */
+.form-side {
+  flex: 1;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .auth-card {
+    flex-direction: column;
+    height: auto;
+    min-height: unset;
+    border-radius: 20px;
+  }
+  .animation-side {
+    min-height: 220px;
+    padding: 24px;
+  }
+  .lottie-box { width: 160px; }
+  .form-side { padding: 24px 20px; }
+}

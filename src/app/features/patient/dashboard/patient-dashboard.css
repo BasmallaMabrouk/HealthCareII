@@ -1,0 +1,232 @@
+.dashboard-wrapper {
+  padding: 32px 36px;
+  max-width: 1100px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== WELCOME ===== */
+.welcome-header {
+  margin-bottom: 28px;
+  padding: 26px 30px;
+  background: linear-gradient(135deg, #EDE4F3 0%, #F7F3FC 100%);
+  border-radius: 20px;
+  border-left: 5px solid #5C2D6E;
+}
+
+.welcome-header h1 {
+  color: #1E0A2E;
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.name-highlight { color: #5C2D6E; }
+
+.welcome-header p {
+  color: #6B4F7E;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* ===== STATS ===== */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(92, 45, 110, 0.12);
+  box-shadow: 0 3px 14px rgba(92, 45, 110, 0.07);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover { transform: translateY(-3px); }
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.total-icon     { background: #EDE4F3; color: #5C2D6E; }
+.pending-icon   { background: #FFF8E1; color: #D4820A; }
+.confirmed-icon { background: #E8F5E9; color: #1A7A4A; }
+
+.stat-info label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6B4F7E;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #1E0A2E;
+  line-height: 1;
+}
+
+/* ===== RECENT SECTION ===== */
+.recent-section {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px;
+  border: 1px solid rgba(92, 45, 110, 0.12);
+  box-shadow: 0 3px 14px rgba(92, 45, 110, 0.06);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.section-header h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E0A2E;
+}
+
+.view-all-btn {
+  font-size: 0.82rem;
+  color: #5C2D6E;
+  font-weight: 600;
+  text-decoration: none;
+  background: #EDE4F3;
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.view-all-btn:hover { background: #C4A8D8; color: #2A0F35; }
+
+/* ===== APPOINTMENT ITEMS ===== */
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.app-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #F7F3FC;
+  border-radius: 14px;
+  border: 1px solid rgba(92, 45, 110, 0.1);
+  transition: background 0.2s;
+}
+
+.app-item:hover { background: #EDE4F3; }
+
+/* Date Box */
+.app-date-box {
+  min-width: 50px;
+  width: 50px;
+  height: 54px;
+  background: #5C2D6E;
+  color: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.day-num {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+
+.month-name {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.85;
+  display: block;
+  margin-top: 2px;
+}
+
+.app-details { flex: 1; }
+
+.app-details h3 {
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: #1E0A2E;
+  margin-bottom: 2px;
+}
+
+.app-details p {
+  font-size: 0.8rem;
+  color: #6B4F7E;
+}
+
+/* Status badges */
+.app-status {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.status-confirmed { background: #E8F5E9; color: #1A7A4A; }
+.status-pending   { background: #FFF8E1; color: #D4820A; }
+.status-cancelled { background: #FFEBEE; color: #C62828; }
+.status-completed { background: #EDE4F3; color: #5C2D6E; }
+
+/* ===== LOADER / EMPTY ===== */
+.loader-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #EDE4F3;
+  border-top-color: #5C2D6E;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #6B4F7E;
+}
+
+.empty-state a {
+  color: #5C2D6E;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrapper { padding: 20px; }
+  .stats-container { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,57 @@
+<div class="doctor-list-container">
+  <header class="page-header">
+    <h2>Find Your Specialist</h2>
+    <div class="search-bar-wrapper">
+      <input
+        type="text"
+        placeholder="Search by doctor name..."
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        class="search-input">
+
+      <select [(ngModel)]="selectedSpecialty" (change)="applyFilter()" class="specialty-select">
+        <option value="">All Specializations</option>
+        <option *ngFor="let s of specialties" [value]="s">{{s}}</option>
+      </select>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading" class="loader">Searching for doctors...</div>
+
+  <div *ngIf="!isLoading && filteredDoctors.length === 0" class="empty-state">
+    <p>No doctors found matching your criteria.</p>
+  </div>
+
+  <div class="doctors-grid" *ngIf="!isLoading">
+    <div class="doctor-card" *ngFor="let doctor of filteredDoctors">
+
+      <div class="card-top">
+        <div class="doctor-avatar">
+          <span class="initials">{{ doctor.name[0] }}</span>
+        </div>
+        <div class="rating-badge">
+          <svg viewBox="0 0 16 16" width="11" height="11" fill="#FFD700">
+            <path d="M8 1l1.854 3.756L14 5.528l-3 2.924.708 4.132L8 10.5l-3.708 2.084L5 8.452 2 5.528l4.146-.772z"/>
+          </svg>
+          {{ doctor.rating }}
+        </div>
+      </div>
+
+      <div class="card-info">
+        <h3>{{ doctor.name }}</h3>
+        <p class="specialty">{{ doctor.specialization }}</p>
+        <p class="experience">{{ doctor.experience }} Years Experience</p>
+      </div>
+
+      <div class="card-footer">
+        <button class="view-btn" [routerLink]="['/patient/doctors', doctor.id]">
+          View Profile
+        </button>
+        <button class="book-btn" [routerLink]="['/patient/doctors', doctor.id]">
+          Book Now
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

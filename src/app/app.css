@@ -1,0 +1,48 @@
+/* في الملف العام */
+.app-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 70px;
+  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--secondary-color);
+  min-height: 100vh;
+  padding: 30px;
+  box-sizing: border-box;
+  display: block;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+app-sidebar:hover + .main-content {
+  margin-left: 280px;
+}
+
+:root {
+  --primary-color: #8e4483;
+  --secondary-color: #f3e5f5;
+  --accent-color: #d81b60;
+  --text-main: #4a4a4a;
+  --white: #ffffff;
+}
+
+body {
+  background-color: var(--secondary-color);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--white);
+}
+
+.btn-accent {
+  background-color: var(--accent-color) !important;
+  color: var(--white);
+}

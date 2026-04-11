@@ -1,0 +1,109 @@
+.appointments-container {
+  padding: 32px 36px;
+  max-width: 900px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+  margin-bottom: 28px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, #EDE4F3, #F7F3FC);
+  border-radius: 18px;
+  border-left: 5px solid #5C2D6E;
+}
+
+.page-header h2 { color: #1E0A2E; font-size: 1.7rem; font-weight: 800; margin-bottom: 4px; }
+.page-header p  { color: #6B4F7E; font-size: 0.9rem; }
+
+.loader { text-align: center; padding: 50px; color: #6B4F7E; }
+
+.empty-msg {
+  text-align: center; padding: 60px;
+  background: #fff; border-radius: 18px;
+  border: 1px dashed rgba(92, 45, 110, 0.18); color: #6B4F7E;
+}
+
+.appointments-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.appointment-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(92, 45, 110, 0.12);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(92, 45, 110, 0.06);
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.2s;
+}
+
+.appointment-card:hover { transform: translateY(-2px); }
+
+.card-status {
+  width: 6px;
+  flex-shrink: 0;
+}
+.card-status.confirmed { background: #1A7A4A; }
+.card-status.pending   { background: #D4820A; }
+.card-status.cancelled { background: #C62828; }
+.card-status.completed { background: #5C2D6E; }
+
+.card-body {
+  flex: 1;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.info-group .label {
+  display: block;
+  font-size: 0.75rem;
+  color: #6B4F7E;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.info-group .value {
+  font-size: 0.92rem;
+  color: #1E0A2E;
+  font-weight: 600;
+}
+
+.status-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  display: inline-block;
+}
+.status-badge.confirmed { background: #E8F5E9; color: #1A7A4A; }
+.status-badge.pending   { background: #FFF8E1; color: #D4820A; }
+.status-badge.cancelled { background: #FFEBEE; color: #C62828; }
+.status-badge.completed { background: #EDE4F3; color: #5C2D6E; }
+
+.card-actions { padding: 18px 20px; display: flex; align-items: center; }
+
+.cancel-btn {
+  padding: 8px 18px;
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #ffcdd2;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cancel-btn:hover { background: #ffcdd2; }
+
+@media (max-width: 768px) {
+  .appointments-container { padding: 20px; }
+  .card-body { grid-template-columns: 1fr; }
+}

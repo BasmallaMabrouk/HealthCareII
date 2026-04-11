@@ -1,0 +1,89 @@
+<div class="dashboard-wrapper">
+
+  <header class="welcome-header">
+    <div class="welcome-text">
+      <h1>Welcome back, <span class="name-highlight">{{ patientName }}</span></h1>
+      <p>Here's an overview of your health activity.</p>
+    </div>
+  </header>
+
+  <!-- Stats Cards -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-icon total-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+          <line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <label>Total Appointments</label>
+        <span class="stat-value">{{ stats.total }}</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon pending-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <label>Pending</label>
+        <span class="stat-value">{{ stats.pending }}</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon confirmed-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <label>Confirmed</label>
+        <span class="stat-value">{{ stats.confirmed }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Appointments -->
+  <section class="recent-section">
+    <div class="section-header">
+      <h2>Recent Appointments</h2>
+      <a routerLink="/patient/my-appointments" class="view-all-btn">View All</a>
+    </div>
+
+    <div *ngIf="isLoading" class="loader-wrap">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && upcomingAppointments.length === 0" class="empty-state">
+      <p>No appointments yet. <a routerLink="/patient/doctors">Book your first appointment</a></p>
+    </div>
+
+    <div class="appointments-list" *ngIf="!isLoading && upcomingAppointments.length > 0">
+      <div class="app-item" *ngFor="let app of upcomingAppointments">
+
+        <div class="app-date-box">
+          <span class="day-num">{{ app.date | date:'dd' }}</span>
+          <span class="month-name">{{ app.date | date:'MMM' }}</span>
+        </div>
+
+        <div class="app-details">
+          <h3>Medical Consultation</h3>
+          <p>{{ app.timeSlot }}</p>
+        </div>
+
+        <span class="app-status" [ngClass]="'status-' + app.status">
+          {{ app.status | titlecase }}
+        </span>
+
+      </div>
+    </div>
+  </section>
+
+</div>

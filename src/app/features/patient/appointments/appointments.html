@@ -1,0 +1,38 @@
+<div class="appointments-container">
+  <header class="page-header">
+    <h2>My Appointments</h2>
+    <p>Manage your upcoming and past medical visits.</p>
+  </header>
+
+  <div *ngIf="isLoading" class="loader">Fetching your schedule...</div>
+
+  <div *ngIf="!isLoading && myAppointments.length === 0" class="empty-msg">
+    <p>You have no appointments yet.</p>
+  </div>
+
+  <div class="appointments-grid" *ngIf="!isLoading && myAppointments.length > 0">
+    <div class="appointment-card" *ngFor="let app of myAppointments">
+      <div class="card-status" [ngClass]="app.status"></div>
+      
+      <div class="card-body">
+        <div class="info-group">
+          <span class="label">Doctor</span>
+          <span class="value">Dr. {{ app.doctorId }}</span> </div>
+
+        <div class="info-group">
+          <span class="label">Date & Time</span>
+          <span class="value">{{ app.date }} | {{ app.timeSlot }}</span>
+        </div>
+
+        <div class="info-group">
+          <span class="label">Status</span>
+          <span class="status-badge" [ngClass]="app.status">{{ app.status }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions" *ngIf="app.status !== 'cancelled'">
+        <button class="cancel-btn" (click)="cancelBooking(app.id)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

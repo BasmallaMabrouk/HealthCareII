@@ -1,0 +1,41 @@
+<div class="login-container">
+  <div class="login-header">
+    <h2>Welcome Back</h2>
+    <p>Sign in to manage your healthcare journey.</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <div *ngIf="errorMsg" class="alert-error">{{ errorMsg }}</div>
+
+    <div class="input-group">
+      <label>Email Address</label>
+      <input type="email" formControlName="email" placeholder="name@example.com"
+        [class.error-input]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+      <span class="error-msg"
+        *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <ng-container *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</ng-container>
+        <ng-container *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address.</ng-container>
+      </span>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="••••••••"
+        [class.error-input]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <span class="error-msg"
+        *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <ng-container *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</ng-container>
+        <ng-container *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</ng-container>
+      </span>
+    </div>
+
+    <button type="submit" class="btn-login" [disabled]="loginForm.invalid || isLoading">
+      {{ isLoading ? 'Signing in...' : 'Sign In' }}
+    </button>
+
+    <div class="auth-footer">
+      <p>Don't have an account? <a [routerLink]="['/auth/register']">Create Account</a></p>
+      <p><a [routerLink]="['/auth/forgot-password']" class="forgot-link">Forgot Password?</a></p>
+    </div>
+  </form>
+</div>
