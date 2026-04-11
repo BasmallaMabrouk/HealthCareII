@@ -50,21 +50,32 @@ export class DoctorDetailComponent implements OnInit {
   confirmBooking() {
     if (this.selectedSlot && this.doctor) {
       const saved = localStorage.getItem('currentUser');
-      const patientId = saved ? JSON.parse(saved).id : null;
+      const patientId = saved ? Number(JSON.parse(saved).id) : null;
+      const doctorId = Number(this.doctor.id);
+
+      if (!patientId || isNaN(patientId) || isNaN(doctorId)) {
+        alert('Unable to book appointment. Invalid user or doctor data.');
+        return;
+      }
 
       const newAppointment: any = {
-        patientId: patientId,
-        doctorId: Number(this.doctor.id),
+        patientId,
+        doctorId,
         doctorName: this.doctor.name,
-        date: "2026-04-10",
+        date: this.selectedSlot.day,
         timeSlot: `${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}`,
-        status: "confirmed"
+        status: 'confirmed',
+        createdAt: new Date().toISOString()
       };
 
       this.appointmentService.bookAppointment(newAppointment).subscribe({
         next: (res) => {
           console.log('Booking confirmed:', res);
           this.router.navigate(['/patient/dashboard']);
+        },
+        error: (err) => {
+          console.error('Booking failed:', err);
+          alert('Unable to book appointment. Please try again.');
         }
       });
     }

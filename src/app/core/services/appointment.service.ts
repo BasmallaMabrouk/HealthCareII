@@ -15,7 +15,7 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(`${this.baseUrl}?doctorId=${doctorId}`);
   }
 
-  bookAppointment(appointment: Appointment) {
+  bookAppointment(appointment: Partial<Appointment>) {
     return this.http.post<Appointment>(this.baseUrl, appointment);
   }
 
