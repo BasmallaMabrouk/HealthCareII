@@ -1,20 +1,25 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './features/auth/auth-layout/auth-layout';
-
 import { DoctorListComponent } from './features/doctor-listing/doctor-list/doctor-list';
 import { DoctorDetailComponent } from './features/doctor-listing/doctor-detail/doctor-detail';
 import { Appointments } from './features/patient/appointments/appointments';
 import { MedicalRecords } from './features/patient/medical-records/medical-records';
 import { Patient } from './features/patient/patient-layout/patient-layout';
+import {Home} from './features/home/home/home' 
 
 export const routes: Routes = [
   // 1️⃣ Auth Section (with animation layout)
+  { path: '', 
+  loadComponent: () => import('./features/home/home/home').then(m => m.Home) 
+},
   {
     path: 'auth',
     component: AuthLayoutComponent,
     children: [
-      {
-        path: 'register',
+      
+        
+
+       { path: 'register',
         loadComponent: () => import('./features/auth/register/register').then(m => m.RegisterComponent)
       },
       {
@@ -24,8 +29,8 @@ export const routes: Routes = [
       {
         path: 'forgot-password',
         loadComponent: () => import('./features/auth/forgot-password/forgot-password').then(m => m.ForgotPassword)
-      },
-      { path: '', redirectTo: 'register', pathMatch: 'full' }
+      }
+    
     ]
   },
 
@@ -46,6 +51,6 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '', redirectTo: 'auth/register', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth/register' }
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth' }
 ];

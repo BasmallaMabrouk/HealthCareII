@@ -1,0 +1,185 @@
+<div class="home-wrapper" [class.visible]="isVisible">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <canvas #canvas class="particles-canvas"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- hero text: centered column -->
+    <div class="hero-center">
+
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Healthcare Appointment System
+      </div>
+
+      <h1 class="hero-title">
+        <span class="t-line t-line-1">Healthcare</span>
+        <span class="t-line t-line-2">made <em>simple</em></span>
+        <span class="t-line t-line-3">made for
+          <span class="specialty-clip">
+            <span class="specialty-text"
+              *ngFor="let s of specialties; let i = index"
+              [class.active]="i === currentSpecialtyIndex"
+              [class.exit]="i === (currentSpecialtyIndex - 1 + specialties.length) % specialties.length">
+              {{ s }}
+            </span>
+          </span>
+        </span>
+      </h1>
+
+      <p class="hero-sub">
+        Connect with verified specialists, book appointments, and manage your full medical history — built for patients, doctors and admins.
+      </p>
+
+      <div class="hero-cta">
+        <a [routerLink]="['/auth/register']" class="btn-main">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+          Get Started Free
+        </a>
+        <a [routerLink]="['/auth/login']" class="btn-ghost">
+          Sign In
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+
+    </div><!-- /hero-center -->
+
+    <!-- floating portal cards -->
+    <div class="hero-cards">
+      <div class="portal-card"
+        *ngFor="let p of portals; let i = index"
+        [class]="'pc pc-' + i">
+        <div class="pc-header" [class]="p.color">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+            <path [attr.d]="p.icon"/>
+          </svg>
+          <span>{{ p.role }}</span>
+        </div>
+        <ul class="pc-list">
+          <li *ngFor="let f of p.features">
+            <span class="pc-check">✓</span>{{ f }}
+          </li>
+        </ul>
+        <a [routerLink]="p.link" class="pc-link">
+          Enter as {{ p.role }}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== STATS STRIP ===== -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-val">12K+</span>
+      <span class="stat-lbl">Patients Served</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-val">340+</span>
+      <span class="stat-lbl">Specialists</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-val">3</span>
+      <span class="stat-lbl">User Roles</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-val">98%</span>
+      <span class="stat-lbl">Satisfaction</span>
+    </div>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features-section">
+    <div class="sec-label">What we offer</div>
+    <h2 class="sec-title">Everything in<br><span>one platform</span></h2>
+
+    <div class="features-grid">
+      <div class="feat-card" *ngFor="let f of features">
+        <div class="feat-icon">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path [attr.d]="f.icon"/>
+          </svg>
+        </div>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.desc }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEPS ===== -->
+  <section class="steps-section">
+    <div class="sec-label">How it works</div>
+    <h2 class="sec-title sec-title-light">Ready in<br><span>3 steps</span></h2>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Create Account</h3>
+        <p>Sign up in seconds as a patient, doctor or admin.</p>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Find Your Doctor</h3>
+        <p>Browse by specialty, rating and real-time availability.</p>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Book &amp; Track</h3>
+        <p>Confirm a slot, get instant confirmation, manage from dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to get started?</h2>
+      <p>Join patients, doctors and admins already using MediCare.</p>
+      <div class="cta-btns">
+        <a [routerLink]="['/auth/register']" class="btn-main">
+          Create Free Account
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <a [routerLink]="['/auth/login']" class="cta-link">Already have an account?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      <span>MediCare</span>
+      <em>Your health, our priority.</em>
+    </div>
+    <nav class="footer-nav">
+      <a [routerLink]="['/auth/register']">Register</a>
+      <a [routerLink]="['/auth/login']">Sign In</a>
+      <a [routerLink]="['/auth/forgot-password']">Reset Password</a>
+    </nav>
+  </footer>
+
+</div>
