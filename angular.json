@@ -59,7 +59,8 @@
               "buildTarget": "healthCareSystem:build:production"
             },
             "development": {
-              "buildTarget": "healthCareSystem:build:development"
+              "buildTarget": "healthCareSystem:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

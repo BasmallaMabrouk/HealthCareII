@@ -1,0 +1,199 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@health.com",
+      "password": "admin123",
+      "phone": "01000000000",
+      "role": "admin",
+      "createdAt": "2026-01-01"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Ahmed Hassan",
+      "email": "ahmed@doctor.com",
+      "password": "doctor123",
+      "phone": "01011111111",
+      "role": "doctor",
+      "specialization": "Cardiology",
+      "experience": 10,
+      "bio": "Experienced cardiologist with 10 years in heart care.",
+      "availableSlots": [
+        {
+          "day": "Sunday",
+          "startTime": "09:00",
+          "endTime": "09:30",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "09:30",
+          "endTime": "10:00",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": true
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:00",
+          "endTime": "14:30",
+          "isBooked": false
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:30",
+          "endTime": "15:00",
+          "isBooked": false
+        }
+      ],
+      "rating": 4.8,
+      "reviewCount": 120,
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "3",
+      "name": "Dr. Sara Mohamed",
+      "email": "sara@doctor.com",
+      "password": "doctor123",
+      "phone": "01022222222",
+      "role": "doctor",
+      "specialization": "Dermatology",
+      "experience": 7,
+      "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
+      "availableSlots": [
+        {
+          "day": "Monday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": false
+        },
+        {
+          "day": "Monday",
+          "startTime": "10:30",
+          "endTime": "11:00",
+          "isBooked": false
+        },
+        {
+          "day": "Wednesday",
+          "startTime": "13:00",
+          "endTime": "13:30",
+          "isBooked": false
+        }
+      ],
+      "rating": 4.5,
+      "reviewCount": 85,
+      "createdAt": "2026-02-01"
+    },
+    {
+      "id": "4",
+      "name": "Mohamed Ali",
+      "email": "mohamed@patient.com",
+      "password": "patient123",
+      "phone": "01033333333",
+      "role": "patient",
+      "createdAt": "2026-03-01"
+    },
+    {
+      "id": "5",
+      "name": "Fatma Ibrahim",
+      "email": "fatma@patient.com",
+      "password": "patient123",
+      "phone": "01044444444",
+      "role": "patient",
+      "createdAt": "2026-03-10"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "patientId": "4",
+      "doctorId": "2",
+      "date": "2026-04-10",
+      "timeSlot": "09:00 - 09:30",
+      "status": "confirmed",
+      "notes": "Regular checkup",
+      "createdAt": "2026-03-25",
+      "medicalHistory": {
+        "symptoms": "صداع متكرر وارتفاع في ضغط الدم",
+        "allergies": "بنسلين",
+        "chronicDiseases": "ارتفاع ضغط الدم",
+        "previousSurgeries": "لا يوجد",
+        "currentMedications": "أملوديبين 5mg يومياً"
+      },
+      "prescription": {
+        "notes": "راحة تامة وتقليل الملح في الطعام. مراجعة بعد أسبوعين.",
+        "medicines": [
+          {
+            "id": "m1",
+            "name": "أملوديبين",
+            "dose": "5mg",
+            "frequency": "مرة يومياً",
+            "duration": "30 يوم"
+          },
+          {
+            "id": "m2",
+            "name": "أسبرين",
+            "dose": "100mg",
+            "frequency": "مرة يومياً بعد الأكل",
+            "duration": "30 يوم"
+          },
+          {
+            "id": "m1775868745868cno",
+            "name": "دوليبرام",
+            "dose": "1000mg",
+            "frequency": "مره يوميا",
+            "duration": "2 يوم"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "patientId": "5",
+      "doctorId": "3",
+      "date": "2026-04-12",
+      "timeSlot": "10:00 - 10:30",
+      "status": "confirmed",
+      "notes": "Skin rash consultation",
+      "createdAt": "2026-03-28",
+      "medicalHistory": {
+        "symptoms": "طفح جلدي في الذراعين مع حكة شديدة",
+        "allergies": "لا يوجد",
+        "chronicDiseases": "لا يوجد",
+        "previousSurgeries": "لا يوجد",
+        "currentMedications": "لا يوجد"
+      },
+      "prescription": {
+        "notes": "",
+        "medicines": []
+      }
+    },
+    {
+      "id": "3",
+      "patientId": "5",
+      "doctorId": "2",
+      "date": "2026-04-15",
+      "timeSlot": "14:00 - 14:30",
+      "status": "confirmed",
+      "notes": "Follow-up visit",
+      "createdAt": "2026-04-01",
+      "medicalHistory": {
+        "symptoms": "متابعة دورية بعد العلاج",
+        "allergies": "لا يوجد",
+        "chronicDiseases": "سكري نوع 2",
+        "previousSurgeries": "استئصال الزائدة 2018",
+        "currentMedications": "ميتفورمين 500mg"
+      },
+      "prescription": {
+        "notes": "",
+        "medicines": []
+      }
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

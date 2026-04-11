@@ -1,0 +1,97 @@
+<div class="appointments-container">
+  <div class="appointments-header">
+    <div class="header-info">
+      <h2>Appointments</h2>
+      <p>Manage your patient visits and schedules</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn" style="background: var(--bg-white); border: 1px solid var(--border); color: var(--text-mid);">
+        <span class="material-icons">filter_list</span>
+        <span>Filter</span>
+      </button>
+      <button class="btn btn-primary">
+        <span class="material-icons">download</span>
+        <span>Export</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Date & Time</th>
+          <th>Status</th>
+          <th style="text-align: right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (appt of appointments; track appt.id) {
+          <tr>
+            <td>
+              <div class="patient-cell">
+                <div class="patient-init">
+                  {{ getPatientName(appt.patientId).charAt(0) }}
+                </div>
+                <div>
+                  <p style="font-weight: 600; color: var(--text-dark);">
+                    {{ getPatientName(appt.patientId) }}
+                  </p>
+                  <p style="font-size: 0.7rem; color: var(--text-muted);">
+                    ID: #{{ appt.patientId }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="time-cell">
+                <span class="date">{{ appt.date }}</span>
+                <span class="slot">{{ appt.timeSlot }}</span>
+              </div>
+            </td>
+            <td>
+              <span [class]="'badge ' +
+                (appt.status === 'confirmed' ? 'badge-success' :
+                 appt.status === 'pending'   ? 'badge-warning' : 'badge-danger')">
+                {{ appt.status }}
+              </span>
+            </td>
+            <td>
+              <div class="actions-cell">
+                <!-- View Detail — dynamic doctorId -->
+                <a
+                  [routerLink]="['/doctor', doctorId, 'appointments', appt.id]"
+                  class="action-btn view-btn"
+                  title="View Details">
+                  <span class="material-icons" style="font-size: 18px;">open_in_new</span>
+                </a>
+
+                @if (appt.status === 'pending') {
+                  <button
+                    (click)="changeStatus(appt.id, 'confirmed')"
+                    class="action-btn btn-confirm"
+                    title="Confirm">
+                    <span class="material-icons" style="font-size: 18px;">check</span>
+                  </button>
+                }
+                <button
+                  (click)="changeStatus(appt.id, 'cancelled')"
+                  class="action-btn btn-cancel"
+                  title="Cancel">
+                  <span class="material-icons" style="font-size: 18px;">close</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" style="padding: 4rem; text-align: center; color: var(--text-muted); font-style: italic;">
+              No appointments found
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

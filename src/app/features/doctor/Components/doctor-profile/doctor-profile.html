@@ -1,0 +1,111 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h2 class="page-title">Profile Settings</h2>
+    <button (click)="saveProfile()" class="btn btn-primary">
+      <span class="material-icons">save</span>
+      <span>Save Changes</span>
+    </button>
+  </div>
+
+  <div class="profile-grid">
+    <!-- Personal Info -->
+    <div class="form-section">
+      <div class="card">
+        <h3>
+          <span class="material-icons" style="color: var(--primary-color);">person</span>
+          Personal Information
+        </h3>
+        
+        @if (profileForm) {
+          <form [formGroup]="profileForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input formControlName="name" placeholder="Enter your full name">
+              </div>
+              <div class="form-group">
+                <label>Specialization</label>
+                <input formControlName="specialization" placeholder="e.g. Cardiology">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Experience (Years)</label>
+              <input type="number" formControlName="experience">
+            </div>
+
+            <div class="form-group">
+              <label>Biography</label>
+              <textarea formControlName="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+            </div>
+          </form>
+        }
+      </div>
+    </div>
+
+    <!-- Availability -->
+    <div class="availability-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>
+            <span class="material-icons" style="color: var(--primary-color);">schedule</span>
+            Availability
+          </h3>
+          <button (click)="showSlotForm = !showSlotForm" class="btn-icon" style="color: var(--primary-color);">
+            <span class="material-icons">{{ showSlotForm ? 'close' : 'add' }}</span>
+          </button>
+        </div>
+
+        @if (showSlotForm) {
+          <div class="slot-form">
+            <form [formGroup]="slotForm" (ngSubmit)="addSlot()">
+              <div class="form-group">
+                <label>Day</label>
+                <select formControlName="day">
+                  <option>Sunday</option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thursday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                </select>
+              </div>
+              <div class="form-row" style="margin-bottom: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label>Start</label>
+                  <input type="time" formControlName="startTime">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label>End</label>
+                  <input type="time" formControlName="endTime">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 0.8rem;">
+                Add Slot
+              </button>
+            </form>
+          </div>
+        }
+
+        <div class="slot-list">
+          @for (slot of doctor?.availableSlots; track $index) {
+            <div class="slot-item">
+              <div class="slot-info">
+                <p>{{ slot.day }}</p>
+                <span>{{ slot.startTime }} - {{ slot.endTime }}</span>
+              </div>
+              <button (click)="removeSlot($index)" class="remove-btn">
+                <span class="material-icons" style="font-size: 18px;">delete</span>
+              </button>
+            </div>
+          } @empty {
+            <p style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.8rem; font-style: italic;">
+              No slots added yet
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
