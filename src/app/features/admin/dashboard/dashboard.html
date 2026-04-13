@@ -1,0 +1,113 @@
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🏥</span>
+      <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" class="nav-item active">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a routerLink="/admin/doctors" class="nav-item">
+        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
+      </a>
+      <a routerLink="/admin/patients" class="nav-item">
+        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
+      </a>
+      <a routerLink="/admin/appointments" class="nav-item">
+        <span class="nav-icon">📅</span> Appointments
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Dashboard</h1>
+      <p class="page-subtitle">Overview of the healthcare system</p>
+    </header>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading statistics...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="error-state">
+      <p>⚠️ {{ error }}</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div *ngIf="stats && !loading" class="stats-grid">
+      <div class="stat-card primary">
+        <div class="stat-icon">👨‍⚕️</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stats.totalDoctors }}</span>
+          <span class="stat-label">Total Doctors</span>
+        </div>
+        <a routerLink="/admin/doctors" class="stat-link">View All →</a>
+      </div>
+
+      <div class="stat-card secondary">
+        <div class="stat-icon">🧑‍🤝‍🧑</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stats.totalPatients }}</span>
+          <span class="stat-label">Total Patients</span>
+        </div>
+        <a routerLink="/admin/patients" class="stat-link">View All →</a>
+      </div>
+
+      <div class="stat-card accent">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stats.totalAppointments }}</span>
+          <span class="stat-label">Total Appointments</span>
+        </div>
+        <a routerLink="/admin/appointments" class="stat-link">View All →</a>
+      </div>
+
+      <div class="stat-card success">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stats.completedAppointments }}</span>
+          <span class="stat-label">Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment Status Breakdown -->
+    <div *ngIf="stats && !loading" class="status-breakdown">
+      <h2 class="section-title">Appointment Status Breakdown</h2>
+      <div class="status-cards">
+        <div class="status-card pending">
+          <span class="status-count">{{ stats.pendingAppointments }}</span>
+          <span class="status-label">⏳ Pending</span>
+        </div>
+        <div class="status-card confirmed">
+          <span class="status-count">{{ stats.confirmedAppointments }}</span>
+          <span class="status-label">✅ Confirmed</span>
+        </div>
+        <div class="status-card completed">
+          <span class="status-count">{{ stats.completedAppointments }}</span>
+          <span class="status-label">🏁 Completed</span>
+        </div>
+        <div class="status-card cancelled">
+          <span class="status-count">{{ stats.cancelledAppointments }}</span>
+          <span class="status-label">❌ Cancelled</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div *ngIf="stats && !loading" class="quick-actions">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="action-buttons">
+        <a routerLink="/admin/doctors" class="btn btn-primary">➕ Add Doctor</a>
+        <a routerLink="/admin/appointments" class="btn btn-outline">📋 View Appointments</a>
+        <a routerLink="/admin/patients" class="btn btn-outline">👥 View Patients</a>
+      </div>
+    </div>
+  </main>
+</div>

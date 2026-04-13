@@ -25,6 +25,9 @@ export interface Appointment {
   doctorId: string;
   date: string;
   timeSlot: string;
+  createdAt: string;
+  patientName?: string;
+  doctorName?: string;
   status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
   notes?: string;
   medicalHistory?: MedicalHistory;

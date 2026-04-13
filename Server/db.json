@@ -7,12 +7,13 @@
       "password": "admin123",
       "phone": "01000000000",
       "role": "admin",
+      "isActive": true,
       "createdAt": "2026-01-01"
     },
     {
       "id": "2",
       "name": "Dr. Ahmed Hassan",
-      "email": "ahmed@doctor.com",
+      "email": "ahmed@health.com",
       "password": "doctor123",
       "phone": "01011111111",
       "role": "doctor",
@@ -53,6 +54,7 @@
       ],
       "rating": 4.8,
       "reviewCount": 120,
+      "isActive": true,
       "createdAt": "2026-01-15"
     },
     {
@@ -87,25 +89,60 @@
       ],
       "rating": 4.5,
       "reviewCount": 85,
+      "isActive": true,
       "createdAt": "2026-02-01"
     },
     {
       "id": "4",
       "name": "Mohamed Ali",
-      "email": "mohamed@patient.com",
+      "email": "patient@health.com",
       "password": "patient123",
       "phone": "01033333333",
       "role": "patient",
+      "isActive": true,
       "createdAt": "2026-03-01"
     },
     {
       "id": "5",
       "name": "Fatma Ibrahim",
-      "email": "fatma@patient.com",
+      "email": "fatma@health.com",
       "password": "patient123",
       "phone": "01044444444",
       "role": "patient",
+      "isActive": true,
       "createdAt": "2026-03-10"
+    },
+    {
+      "name": "Dr. Malak Khaled",
+      "email": "malakkhaledme4@gmail.com",
+      "password": "123456",
+      "phone": "01144686867",
+      "specialization": "ENT",
+      "experience": 1,
+      "bio": " Dr. Malak khaled with 3 years of experience ",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "EWn3lTi7n0U"
+    },
+    {
+      "name": "Dr. Rofida Ahmed",
+      "email": "Rofida@gmail.com",
+      "password": "123456",
+      "phone": "01144325256",
+      "specialization": "Urology",
+      "experience": 1,
+      "bio": "one year of experince",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "qykO9Swz1zc"
     }
   ],
   "appointments": [
