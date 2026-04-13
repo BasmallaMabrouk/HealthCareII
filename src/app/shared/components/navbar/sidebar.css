@@ -1,18 +1,13 @@
 /* Container */
 .sidebar-container {
-  width: 70px;
+  width: 255px;
   height: 100vh;
   position: fixed;
   left: 0; top: 0;
   background: linear-gradient(180deg, #5C2D6E 0%, #2A0F35 100%);
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   z-index: 1000;
   box-shadow: 4px 0 20px rgba(92, 45, 110, 0.25);
-}
-
-.sidebar-container:hover {
-  width: 255px;
 }
 
 /* Sidebar Structure */
@@ -93,7 +88,7 @@
   border-left: 4px solid #C4A8D8;
 }
 
-/* Icon wrapper — fixed width so icons never disappear */
+/* Icon wrapper */
 .nav-icon {
   min-width: 70px;
   width: 70px;
@@ -109,18 +104,11 @@
   flex-shrink: 0;
 }
 
-/* Text — hidden by default, revealed on sidebar hover */
+/* Text — always visible */
 .nav-text {
-  opacity: 0;
-  transition: opacity 0.25s ease;
   font-weight: 500;
   font-size: 0.9rem;
   white-space: nowrap;
-  pointer-events: none;
-}
-
-.sidebar-container:hover .nav-text {
-  opacity: 1;
 }
 
 /* Logout Section */
