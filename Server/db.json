@@ -46,42 +46,13 @@
       "specialization": "Cardiology",
       "experience": 10,
       "bio": "Experienced cardiologist with 10 years in heart care.",
-      "patients": [
-        "4",
-        "6",
-        "7"
-      ],
+      "patients": ["4", "6", "7"],
       "availableSlots": [
-        {
-          "day": "Sunday",
-          "startTime": "09:00",
-          "endTime": "09:30",
-          "isBooked": false
-        },
-        {
-          "day": "Sunday",
-          "startTime": "09:30",
-          "endTime": "10:00",
-          "isBooked": false
-        },
-        {
-          "day": "Sunday",
-          "startTime": "10:00",
-          "endTime": "10:30",
-          "isBooked": true
-        },
-        {
-          "day": "Tuesday",
-          "startTime": "14:00",
-          "endTime": "14:30",
-          "isBooked": false
-        },
-        {
-          "day": "Tuesday",
-          "startTime": "14:30",
-          "endTime": "15:00",
-          "isBooked": false
-        }
+        { "day": "Sunday", "startTime": "09:00", "endTime": "09:30", "isBooked": false },
+        { "day": "Sunday", "startTime": "09:30", "endTime": "10:00", "isBooked": false },
+        { "day": "Sunday", "startTime": "10:00", "endTime": "10:30", "isBooked": true },
+        { "day": "Tuesday", "startTime": "14:00", "endTime": "14:30", "isBooked": false },
+        { "day": "Tuesday", "startTime": "14:30", "endTime": "15:00", "isBooked": false }
       ],
       "rating": 4.8,
       "reviewCount": 120,
@@ -99,24 +70,9 @@
       "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
       "patients": 0,
       "availableSlots": [
-        {
-          "day": "Monday",
-          "startTime": "10:00",
-          "endTime": "10:30",
-          "isBooked": false
-        },
-        {
-          "day": "Monday",
-          "startTime": "10:30",
-          "endTime": "11:00",
-          "isBooked": false
-        },
-        {
-          "day": "Wednesday",
-          "startTime": "13:00",
-          "endTime": "13:30",
-          "isBooked": false
-        }
+        { "day": "Monday", "startTime": "10:00", "endTime": "10:30", "isBooked": false },
+        { "day": "Monday", "startTime": "10:30", "endTime": "11:00", "isBooked": false },
+        { "day": "Wednesday", "startTime": "13:00", "endTime": "13:30", "isBooked": false }
       ],
       "rating": 4.5,
       "reviewCount": 85,
@@ -216,9 +172,6 @@
       "timeSlot": "10:00 - 10:30",
       "status": "confirmed",
       "notes": "Skin rash consultation",
-<<<<<<< HEAD
-      "createdAt": "2026-03-28"
-=======
       "createdAt": "2026-03-28",
       "medicalHistory": {
         "symptoms": "دماغها تعبانه ",
@@ -253,7 +206,6 @@
           }
         ]
       }
->>>>>>> 771e485 (add home page)
     },
     {
       "id": "3",
