@@ -17,7 +17,9 @@
       <div class="card-body">
         <div class="info-group">
           <span class="label">Doctor</span>
-          <span class="value">Dr. {{ app.doctorId }}</span> </div>
+          <!-- ✅ Fix: show doctorNames map, fallback to ID -->
+          <span class="value">{{ doctorNames[app.doctorId] || ('Dr. #' + app.doctorId) }}</span>
+        </div>
 
         <div class="info-group">
           <span class="label">Date & Time</span>
@@ -27,6 +29,15 @@
         <div class="info-group">
           <span class="label">Status</span>
           <span class="status-badge" [ngClass]="app.status">{{ app.status }}</span>
+        </div>
+
+        <!-- ✅ Show prescription if doctor added one -->
+        <div class="info-group" *ngIf="app.prescription?.medicines?.length">
+          <span class="label">Prescription</span>
+          <span class="value" style="color: #5C2D6E; font-weight: 600;">
+            {{ app.prescription!.medicines.length }} medicine(s)
+            <span *ngIf="app.prescription?.notes"> · {{ app.prescription!.notes }}</span>
+          </span>
         </div>
       </div>
 

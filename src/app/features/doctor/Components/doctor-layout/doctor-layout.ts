@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DoctorService } from '../../../../core/services/doctor.service';
+import { AuthService } from '../../../../core/services/auth';
 import { Doctor } from '../../../../core/models/doctor.model';
 
 @Component({
@@ -19,7 +20,9 @@ export class DoctorLayoutComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private doctorService: DoctorService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,11 @@ export class DoctorLayoutComponent implements OnInit {
     this.doctorService.getDoctorProfile(this.doctorId).subscribe((data) => {
       this.doctor = data;
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 
   getInitials(name: string): string {

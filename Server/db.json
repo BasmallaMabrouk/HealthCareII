@@ -1,33 +1,32 @@
 {
   "users": [
-
     {
-  "id": "6",
-  "name": "Ali Hassan",
-  "email": "ali@patient.com",
-  "password": "patient123",
-  "phone": "01055555555",
-  "role": "patient",
-  "createdAt": "2026-04-01"
-},
-{
-  "id": "7",
-  "name": "Nour Ahmed",
-  "email": "nour@patient.com",
-  "password": "123456",
-  "phone": "01066666666",
-  "role": "patient",
-  "createdAt": "2026-04-02"
-},
-{
-  "id": "8",
-  "name": "Omar Khaled",
-  "email": "omar@patient.com",
-  "password": "123456",
-  "phone": "01077777777",
-  "role": "patient",
-  "createdAt": "2026-04-03"
-},
+      "id": "6",
+      "name": "Ali Hassan",
+      "email": "ali@patient.com",
+      "password": "patient123",
+      "phone": "01055555555",
+      "role": "patient",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "7",
+      "name": "Nour Ahmed",
+      "email": "nour@patient.com",
+      "password": "123456",
+      "phone": "01066666666",
+      "role": "patient",
+      "createdAt": "2026-04-02"
+    },
+    {
+      "id": "8",
+      "name": "Omar Khaled",
+      "email": "omar@patient.com",
+      "password": "123456",
+      "phone": "01077777777",
+      "role": "patient",
+      "createdAt": "2026-04-03"
+    },
     {
       "id": "1",
       "name": "Admin User",
@@ -47,13 +46,42 @@
       "specialization": "Cardiology",
       "experience": 10,
       "bio": "Experienced cardiologist with 10 years in heart care.",
-      "patients": 0,
+      "patients": [
+        "4",
+        "6",
+        "7"
+      ],
       "availableSlots": [
-        { "day": "Sunday", "startTime": "09:00", "endTime": "09:30", "isBooked": false },
-        { "day": "Sunday", "startTime": "09:30", "endTime": "10:00", "isBooked": false },
-        { "day": "Sunday", "startTime": "10:00", "endTime": "10:30", "isBooked": true },
-        { "day": "Tuesday", "startTime": "14:00", "endTime": "14:30", "isBooked": false },
-        { "day": "Tuesday", "startTime": "14:30", "endTime": "15:00", "isBooked": false }
+        {
+          "day": "Sunday",
+          "startTime": "09:00",
+          "endTime": "09:30",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "09:30",
+          "endTime": "10:00",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": true
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:00",
+          "endTime": "14:30",
+          "isBooked": false
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:30",
+          "endTime": "15:00",
+          "isBooked": false
+        }
       ],
       "rating": 4.8,
       "reviewCount": 120,
@@ -71,9 +99,24 @@
       "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
       "patients": 0,
       "availableSlots": [
-        { "day": "Monday", "startTime": "10:00", "endTime": "10:30", "isBooked": false },
-        { "day": "Monday", "startTime": "10:30", "endTime": "11:00", "isBooked": false },
-        { "day": "Wednesday", "startTime": "13:00", "endTime": "13:30", "isBooked": false }
+        {
+          "day": "Monday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": false
+        },
+        {
+          "day": "Monday",
+          "startTime": "10:30",
+          "endTime": "11:00",
+          "isBooked": false
+        },
+        {
+          "day": "Wednesday",
+          "startTime": "13:00",
+          "endTime": "13:30",
+          "isBooked": false
+        }
       ],
       "rating": 4.5,
       "reviewCount": 85,
@@ -143,57 +186,78 @@
     }
   ],
   "appointments": [
-  {
-    "id": "1",
-    "patientId": "4",
-    "doctorId": "2",
-    "date": "2026-04-10",
-    "timeSlot": "09:00 - 09:30",
-    "status": "confirmed",
-    "notes": "Regular checkup",
-    "createdAt": "2026-03-25"
-  },
-  {
-    "id": "2",
-    "patientId": "5",
-    "doctorId": "3",
-    "date": "2026-04-12",
-    "timeSlot": "10:00 - 10:30",
-    "status": "pending",
-    "notes": "Skin rash consultation",
-    "createdAt": "2026-03-28"
-  },
-  {
-    "id": "3",
-    "patientId": "6",
-    "doctorId": "2",
-    "date": "2026-04-14",
-    "timeSlot": "10:00 - 10:30",
-    "status": "confirmed",
-    "notes": "Heart checkup",
-    "createdAt": "2026-04-01"
-  },
-  {
-    "id": "4",
-    "patientId": "7",
-    "doctorId": "2",
-    "date": "2026-04-15",
-    "timeSlot": "11:00 - 11:30",
-    "status": "pending",
-    "notes": "Follow-up visit",
-    "createdAt": "2026-04-02"
-  },
-  {
-    "id": "5",
-    "patientId": "8",
-    "doctorId": "3",
-    "date": "2026-04-16",
-    "timeSlot": "12:00 - 12:30",
-    "status": "confirmed",
-    "notes": "Skin allergy check",
-    "createdAt": "2026-04-03"
-  }
-],
+    {
+      "id": "1",
+      "patientId": "4",
+      "doctorId": "2",
+      "date": "2026-04-10",
+      "timeSlot": "09:00 - 09:30",
+      "status": "confirmed",
+      "notes": "Regular checkup",
+      "createdAt": "2026-03-25",
+      "prescription": {
+        "notes": "",
+        "medicines": [
+          {
+            "id": "m1776107839039z9w",
+            "name": "doliplam1000",
+            "dose": "1000mg",
+            "frequency": "1x1",
+            "duration": "3days"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "patientId": "5",
+      "doctorId": "3",
+      "date": "2026-04-12",
+      "timeSlot": "10:00 - 10:30",
+      "status": "confirmed",
+      "notes": "Skin rash consultation",
+      "createdAt": "2026-03-28"
+    },
+    {
+      "id": "3",
+      "patientId": "6",
+      "doctorId": "2",
+      "date": "2026-04-14",
+      "timeSlot": "10:00 - 10:30",
+      "status": "confirmed",
+      "notes": "Heart checkup",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "4",
+      "patientId": "7",
+      "doctorId": "2",
+      "date": "2026-04-15",
+      "timeSlot": "11:00 - 11:30",
+      "status": "pending",
+      "notes": "Follow-up visit",
+      "createdAt": "2026-04-02"
+    },
+    {
+      "id": "5",
+      "patientId": "8",
+      "doctorId": "3",
+      "date": "2026-04-16",
+      "timeSlot": "12:00 - 12:30",
+      "status": "confirmed",
+      "notes": "Skin allergy check",
+      "createdAt": "2026-04-03"
+    },
+    {
+      "patientId": "4",
+      "doctorId": 3,
+      "doctorName": "Dr. Sara Mohamed",
+      "date": "2026-04-10",
+      "timeSlot": "10:00 - 10:30",
+      "status": "confirmed",
+      "id": "QFYFMWqhgCc"
+    }
+  ],
   "prescriptions": [
     {
       "id": "1",

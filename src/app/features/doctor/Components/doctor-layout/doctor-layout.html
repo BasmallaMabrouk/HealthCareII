@@ -20,7 +20,8 @@
     </nav>
 
     <div class="sidebar-footer">
-      <button class="btn logout-btn">
+      <!-- ✅ Fix: (click)="logout()" added -->
+      <button class="btn logout-btn" (click)="logout()">
         <span class="material-icons">logout</span>
         <span>Logout</span>
       </button>
@@ -44,7 +45,6 @@
             <p class="user-name">{{ doctor?.name || '...' }}</p>
             <p class="user-role">{{ doctor?.specialization || '...' }}</p>
           </div>
-          <!-- Avatar بالـ initials بدل صورة خارجية -->
           <div class="avatar-initials">
             {{ getInitials(doctor?.name || '') }}
           </div>
