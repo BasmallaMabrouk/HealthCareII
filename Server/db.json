@@ -46,13 +46,42 @@
       "specialization": "Cardiology",
       "experience": 10,
       "bio": "Experienced cardiologist with 10 years in heart care.",
-      "patients": ["4", "6", "7"],
+      "patients": [
+        "4",
+        "6",
+        "7"
+      ],
       "availableSlots": [
-        { "day": "Sunday", "startTime": "09:00", "endTime": "09:30", "isBooked": false },
-        { "day": "Sunday", "startTime": "09:30", "endTime": "10:00", "isBooked": false },
-        { "day": "Sunday", "startTime": "10:00", "endTime": "10:30", "isBooked": true },
-        { "day": "Tuesday", "startTime": "14:00", "endTime": "14:30", "isBooked": false },
-        { "day": "Tuesday", "startTime": "14:30", "endTime": "15:00", "isBooked": false }
+        {
+          "day": "Sunday",
+          "startTime": "09:00",
+          "endTime": "09:30",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "09:30",
+          "endTime": "10:00",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": true
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:00",
+          "endTime": "14:30",
+          "isBooked": false
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:30",
+          "endTime": "15:00",
+          "isBooked": false
+        }
       ],
       "rating": 4.8,
       "reviewCount": 120,
@@ -70,9 +99,24 @@
       "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
       "patients": 0,
       "availableSlots": [
-        { "day": "Monday", "startTime": "10:00", "endTime": "10:30", "isBooked": false },
-        { "day": "Monday", "startTime": "10:30", "endTime": "11:00", "isBooked": false },
-        { "day": "Wednesday", "startTime": "13:00", "endTime": "13:30", "isBooked": false }
+        {
+          "day": "Monday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": false
+        },
+        {
+          "day": "Monday",
+          "startTime": "10:30",
+          "endTime": "11:00",
+          "isBooked": false
+        },
+        {
+          "day": "Wednesday",
+          "startTime": "13:00",
+          "endTime": "13:30",
+          "isBooked": false
+        }
       ],
       "rating": 4.5,
       "reviewCount": 85,
@@ -139,6 +183,16 @@
       "availableSlots": [],
       "createdAt": "2026-04-13",
       "id": "J1ClD7pTzOc"
+    },
+    {
+      "name": "Aya Abdulaziz_test2",
+      "email": "dann742003@gmail.com",
+      "password": "uouo123",
+      "phone": "01224113837",
+      "role": "patient",
+      "isActive": true,
+      "createdAt": "2026-04-13T20:57:58.888Z",
+      "id": "FlzAneArPQQ"
     }
   ],
   "appointments": [
@@ -245,6 +299,39 @@
       "timeSlot": "10:00 - 10:30",
       "status": "confirmed",
       "id": "QFYFMWqhgCc"
+    },
+    {
+      "patientId": "4",
+      "patientName": "Mohamed Ali",
+      "doctorId": "3",
+      "doctorName": "Dr. Sara Mohamed",
+      "date": "2026-04-13",
+      "timeSlot": "10:30 - 11:00",
+      "status": "pending",
+      "createdAt": "2026-04-13T20:55:07.014Z",
+      "id": "pU4SQgeFm1Y"
+    },
+    {
+      "patientId": "4",
+      "patientName": "Mohamed Ali",
+      "doctorId": "2",
+      "doctorName": "Dr. Ahmed Hassan",
+      "date": "2026-04-13",
+      "timeSlot": "14:30 - 15:00",
+      "status": "pending",
+      "createdAt": "2026-04-13T20:55:40.791Z",
+      "id": "JHVbLU-2cXE"
+    },
+    {
+      "patientId": "FlzAneArPQQ",
+      "patientName": "Aya Abdulaziz_test2",
+      "doctorId": "2",
+      "doctorName": "Dr. Ahmed Hassan",
+      "date": "2026-04-13",
+      "timeSlot": "09:00 - 09:30",
+      "status": "pending",
+      "createdAt": "2026-04-13T20:58:51.299Z",
+      "id": "73VwqcoXYZs"
     }
   ],
   "prescriptions": [

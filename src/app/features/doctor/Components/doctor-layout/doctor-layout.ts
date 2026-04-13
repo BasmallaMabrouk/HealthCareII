@@ -1,15 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-<<<<<<< HEAD
+
+
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DoctorService } from '../../../../core/services/doctor.service';
-import { AuthService } from '../../../../core/services/auth';
-=======
-import { RouterModule, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { DoctorService } from '../../../../core/services/doctor.service';
->>>>>>> 771e485 (add home page)
+
 import { Doctor } from '../../../../core/models/doctor.model';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-doctor-layout',
@@ -26,13 +23,11 @@ export class DoctorLayoutComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-<<<<<<< HEAD
+
     private router: Router,
     private doctorService: DoctorService,
     private authService: AuthService,
-=======
-    private doctorService: DoctorService,
->>>>>>> 771e485 (add home page)
+
   ) {}
 
   ngOnInit(): void {
@@ -53,14 +48,13 @@ export class DoctorLayoutComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
 
-=======
->>>>>>> 771e485 (add home page)
+
   getInitials(name: string): string {
     if (!name) return '??';
     return name
