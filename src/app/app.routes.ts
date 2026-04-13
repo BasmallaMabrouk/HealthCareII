@@ -8,3 +8,8 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full' },
 ];
+    path: 'doctor',
+    loadChildren: () => import('./features/doctor/doctor.routes').then((m) => m.DOCTOR_ROUTES),
+  },
+  { path: '', redirectTo: 'doctor', pathMatch: 'full' },
+];

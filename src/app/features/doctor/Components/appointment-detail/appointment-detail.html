@@ -1,0 +1,240 @@
+<div class="detail-container" *ngIf="appointment; else loading">
+  <!-- ── Header ── -->
+  <div class="detail-header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+      Back to Appointments
+    </button>
+
+    <div class="toasts">
+      <div class="toast success" [class.visible]="saveSuccess">
+        <span class="material-icons">check_circle</span> Saved successfully
+      </div>
+      <div class="toast error" [class.visible]="saveError">
+        <span class="material-icons">error</span> Failed to save
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Patient Banner ── -->
+  <div class="patient-banner">
+    <div class="patient-avatar-lg">
+      {{ getInitials(patient?.name || '') }}
+    </div>
+    <div class="patient-meta">
+      <h2>{{ patient?.name || '...' }}</h2>
+      <div class="patient-tags">
+        <span class="tag">
+          <span class="material-icons">calendar_today</span>
+          {{ appointment.date }}
+        </span>
+        <span class="tag">
+          <span class="material-icons">schedule</span>
+          {{ appointment.timeSlot }}
+        </span>
+        <span class="tag" *ngIf="patient?.phone">
+          <span class="material-icons">phone</span>
+          {{ patient?.phone }}
+        </span>
+        <span class="tag status-tag" [ngClass]="appointment.status">
+          {{ appointment.status }}
+        </span>
+      </div>
+    </div>
+    <div class="appointment-id">#{{ appointment.id }}</div>
+  </div>
+
+  <!-- ── Tabs ── -->
+  <div class="tabs-bar">
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'history'"
+      (click)="activeTab = 'history'"
+    >
+      <span class="material-icons">history_edu</span>
+      Medical History
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'prescription'"
+      (click)="activeTab = 'prescription'"
+    >
+      <span class="material-icons">medication</span>
+      Prescription
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TAB 1: Medical History
+  ══════════════════════════════════════ -->
+  @if (activeTab === 'history') {
+    <div class="tab-panel" [formGroup]="historyForm">
+      <div class="fields-grid">
+        <div class="field-block span-full">
+          <label>
+            <span class="material-icons">sick</span>
+            Symptoms & Chief Complaint
+          </label>
+          <textarea
+            formControlName="symptoms"
+            rows="3"
+            placeholder="Describe the patient's main symptoms..."
+          >
+          </textarea>
+        </div>
+
+        <div class="field-block">
+          <label>
+            <span class="material-icons">warning_amber</span>
+            Allergies
+          </label>
+          <textarea
+            formControlName="allergies"
+            rows="3"
+            placeholder="Drug, food, or environmental allergies..."
+          >
+          </textarea>
+        </div>
+
+        <div class="field-block">
+          <label>
+            <span class="material-icons">monitor_heart</span>
+            Chronic Diseases
+          </label>
+          <textarea
+            formControlName="chronicDiseases"
+            rows="3"
+            placeholder="Diabetes, hypertension, heart disease..."
+          >
+          </textarea>
+        </div>
+
+        <div class="field-block">
+          <label>
+            <span class="material-icons">local_hospital</span>
+            Previous Surgeries
+          </label>
+          <textarea
+            formControlName="previousSurgeries"
+            rows="3"
+            placeholder="Past surgical procedures and dates..."
+          >
+          </textarea>
+        </div>
+
+        <div class="field-block">
+          <label>
+            <span class="material-icons">medication_liquid</span>
+            Current Medications
+          </label>
+          <textarea
+            formControlName="currentMedications"
+            rows="3"
+            placeholder="Ongoing medications and dosages..."
+          >
+          </textarea>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <button class="btn btn-primary" (click)="saveHistory()" [disabled]="saving">
+          <span class="material-icons">{{ saving ? 'hourglass_empty' : 'save' }}</span>
+          {{ saving ? 'Saving...' : 'Save Medical History' }}
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ══════════════════════════════════════
+       TAB 2: Prescription
+  ══════════════════════════════════════ -->
+  @if (activeTab === 'prescription') {
+    <div class="tab-panel" [formGroup]="prescriptionForm">
+      <!-- Section header -->
+      <div class="section-head">
+        <h3>
+          <span class="material-icons">medication</span>
+          Medicines
+        </h3>
+        <button class="btn btn-outline" (click)="addMedicine()">
+          <span class="material-icons">add</span>
+          Add Medicine
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      @if (medicines.length === 0) {
+        <div class="empty-box">
+          <span class="material-icons">medication</span>
+          <p>No medicines added yet</p>
+          <button class="btn btn-primary" (click)="addMedicine()">
+            <span class="material-icons">add</span>
+            Add First Medicine
+          </button>
+        </div>
+      }
+
+      <!-- Medicines list -->
+      <div class="medicines-list" formArrayName="medicines">
+        @for (med of medicines.controls; track $index; let i = $index) {
+          <div class="medicine-card" [formGroupName]="i">
+            <div class="med-header">
+              <div class="med-num">{{ i + 1 }}</div>
+              <button class="del-btn" (click)="removeMedicine(i)" title="Remove medicine">
+                <span class="material-icons">delete_outline</span>
+              </button>
+            </div>
+
+            <div class="med-fields">
+              <div class="mfield mfield-name">
+                <label>Medicine Name</label>
+                <input formControlName="name" placeholder="e.g. Amoxicillin" />
+              </div>
+              <div class="mfield">
+                <label>Dose</label>
+                <input formControlName="dose" placeholder="e.g. 500mg" />
+              </div>
+              <div class="mfield">
+                <label>Frequency</label>
+                <input formControlName="frequency" placeholder="e.g. 3× daily" />
+              </div>
+              <div class="mfield">
+                <label>Duration</label>
+                <input formControlName="duration" placeholder="e.g. 7 days" />
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-block">
+        <label>
+          <span class="material-icons">note_alt</span>
+          Doctor Notes & Instructions
+        </label>
+        <textarea
+          formControlName="notes"
+          rows="3"
+          placeholder="Follow-up advice, diet recommendations, special instructions..."
+        >
+        </textarea>
+      </div>
+
+      <div class="panel-footer">
+        <button class="btn btn-primary" (click)="savePrescription()" [disabled]="saving">
+          <span class="material-icons">{{ saving ? 'hourglass_empty' : 'save' }}</span>
+          {{ saving ? 'Saving...' : 'Save Prescription' }}
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Loading state -->
+<ng-template #loading>
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading appointment...</p>
+  </div>
+</ng-template>

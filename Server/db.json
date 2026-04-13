@@ -60,7 +60,7 @@
     {
       "id": "3",
       "name": "Dr. Sara Mohamed",
-      "email": "sara@health.com",
+      "email": "sara@doctor.com",
       "password": "doctor123",
       "phone": "01022222222",
       "role": "doctor",
@@ -154,7 +154,40 @@
       "timeSlot": "09:00 - 09:30",
       "status": "confirmed",
       "notes": "Regular checkup",
-      "createdAt": "2026-03-25"
+      "createdAt": "2026-03-25",
+      "medicalHistory": {
+        "symptoms": "صداع متكرر وارتفاع في ضغط الدم",
+        "allergies": "بنسلين",
+        "chronicDiseases": "ارتفاع ضغط الدم",
+        "previousSurgeries": "لا يوجد",
+        "currentMedications": "أملوديبين 5mg يومياً"
+      },
+      "prescription": {
+        "notes": "راحة تامة وتقليل الملح في الطعام. مراجعة بعد أسبوعين.",
+        "medicines": [
+          {
+            "id": "m1",
+            "name": "أملوديبين",
+            "dose": "5mg",
+            "frequency": "مرة يومياً",
+            "duration": "30 يوم"
+          },
+          {
+            "id": "m2",
+            "name": "أسبرين",
+            "dose": "100mg",
+            "frequency": "مرة يومياً بعد الأكل",
+            "duration": "30 يوم"
+          },
+          {
+            "id": "m1775868745868cno",
+            "name": "دوليبرام",
+            "dose": "1000mg",
+            "frequency": "مره يوميا",
+            "duration": "2 يوم"
+          }
+        ]
+      }
     },
     {
       "id": "2",
@@ -162,59 +195,41 @@
       "doctorId": "3",
       "date": "2026-04-12",
       "timeSlot": "10:00 - 10:30",
-      "status": "pending",
+      "status": "confirmed",
       "notes": "Skin rash consultation",
-      "createdAt": "2026-03-28"
+      "createdAt": "2026-03-28",
+      "medicalHistory": {
+        "symptoms": "طفح جلدي في الذراعين مع حكة شديدة",
+        "allergies": "لا يوجد",
+        "chronicDiseases": "لا يوجد",
+        "previousSurgeries": "لا يوجد",
+        "currentMedications": "لا يوجد"
+      },
+      "prescription": {
+        "notes": "",
+        "medicines": []
+      }
     },
     {
       "id": "3",
-      "patientId": "4",
-      "doctorId": "3",
-      "date": "2026-03-20",
-      "timeSlot": "13:00 - 13:30",
-      "status": "completed",
-      "notes": "Follow-up visit",
-      "createdAt": "2026-03-15"
-    },
-    {
-      "id": "4",
       "patientId": "5",
       "doctorId": "2",
-      "date": "2026-03-18",
+      "date": "2026-04-15",
       "timeSlot": "14:00 - 14:30",
-      "status": "cancelled",
-      "notes": "Patient cancelled",
-      "createdAt": "2026-03-10"
-    }
-  ],
-  "prescriptions": [
-    {
-      "id": "1",
-      "appointmentId": "1",
-      "patientId": "4",
-      "doctorId": "2",
-      "medications": [
-        {
-          "name": "Aspirin",
-          "dosage": "100mg",
-          "frequency": "Once daily",
-          "duration": "30 days"
-        }
-      ],
-      "diagnosis": "Mild hypertension",
-      "notes": "Monitor blood pressure weekly",
-      "createdAt": "2026-04-10"
-    }
-  ],
-  "medicalRecords": [
-    {
-      "id": "1",
-      "patientId": "4",
-      "doctorId": "2",
-      "appointmentId": "1",
-      "diagnosis": "Mild hypertension",
-      "notes": "Patient advised to reduce salt intake and exercise regularly.",
-      "date": "2026-04-10"
+      "status": "confirmed",
+      "notes": "Follow-up visit",
+      "createdAt": "2026-04-01",
+      "medicalHistory": {
+        "symptoms": "متابعة دورية بعد العلاج",
+        "allergies": "لا يوجد",
+        "chronicDiseases": "سكري نوع 2",
+        "previousSurgeries": "استئصال الزائدة 2018",
+        "currentMedications": "ميتفورمين 500mg"
+      },
+      "prescription": {
+        "notes": "",
+        "medicines": []
+      }
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
