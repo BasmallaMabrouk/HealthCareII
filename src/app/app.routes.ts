@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './features/auth/auth-layout/auth-layout';
-
 import { DoctorListComponent } from './features/doctor-listing/doctor-list/doctor-list';
 import { DoctorDetailComponent } from './features/doctor-listing/doctor-detail/doctor-detail';
 import { Appointments } from './features/patient/appointments/appointments';
@@ -8,7 +7,16 @@ import { MedicalRecords } from './features/patient/medical-records/medical-recor
 import { Patient } from './features/patient/patient-layout/patient-layout';
 
 export const routes: Routes = [
-  // 1️⃣ Auth Section (with animation layout)
+  {
+    path: 'admin',
+    loadChildren: () => import('./features/admin/admin.routes').then((m) => m.adminRoutes),
+  },
+  { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full' },
+  {
+    path: 'doctor',
+    loadChildren: () => import('./features/doctor/doctor.routes').then((m) => m.DOCTOR_ROUTES),
+  },
+  { path: '', redirectTo: 'doctor', pathMatch: 'full' },
   {
     path: 'auth',
     component: AuthLayoutComponent,
@@ -49,3 +57,6 @@ export const routes: Routes = [
   { path: '', redirectTo: 'auth/register', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth/register' }
 ];
+
+
+

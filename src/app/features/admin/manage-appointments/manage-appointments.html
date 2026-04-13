@@ -1,0 +1,127 @@
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🏥</span>
+      <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" class="nav-item">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a routerLink="/admin/doctors" class="nav-item">
+        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
+      </a>
+      <a routerLink="/admin/patients" class="nav-item">
+        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
+      </a>
+      <a routerLink="/admin/appointments" class="nav-item active">
+        <span class="nav-icon">📅</span> Appointments
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h1>All Appointments</h1>
+        <p class="page-subtitle">View and monitor all appointment records</p>
+      </div>
+    </header>
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-error">⚠️ {{ error }}</div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+      <!-- Status Filter Tabs -->
+      <div class="status-tabs">
+        <button
+          *ngFor="let s of statusOptions"
+          class="status-tab"
+          [class.active]="filterStatus === s"
+          (click)="filterStatus = s; onFilterChange()"
+        >
+          {{ s | titlecase }}
+        </button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <span>🔍</span>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="applyFilters()"
+          placeholder="Search patient, doctor or date..."
+          class="search-input"
+        />
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading appointments...</p>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="!loading" class="table-card">
+      <div class="table-header">
+        <span class="table-title">
+          Appointments ({{ filteredAppointments.length }}
+          <span *ngIf="filterStatus !== 'all' || searchQuery"> filtered</span>
+          of {{ allAppointments.length }})
+        </span>
+      </div>
+
+      <div *ngIf="filteredAppointments.length === 0" class="empty-state">
+        <p>📭 No appointments found for the selected filter.</p>
+      </div>
+
+      <div class="table-scroll" *ngIf="filteredAppointments.length > 0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Patient</th>
+              <th>Doctor</th>
+              <th>Date</th>
+              <th>Time Slot</th>
+              <th>Status</th>
+              <th>Notes</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appt of filteredAppointments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <div class="name-cell">
+                  <div class="avatar avatar-patient">{{ appt.patientName?.charAt(0) }}</div>
+                  <span>{{ appt.patientName }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="name-cell">
+                  <div class="avatar avatar-doctor">{{ appt.doctorName?.charAt(0) }}</div>
+                  <span>{{ appt.doctorName }}</span>
+                </div>
+              </td>
+              <td>{{ appt.date | date: 'MMM d, y' }}</td>
+              <td><span class="time-slot">{{ appt.timeSlot }}</span></td>
+              <td>
+                <span class="status-badge" [ngClass]="getStatusClass(appt.status)">
+                  {{ appt.status | statusBadge }}
+                </span>
+              </td>
+              <td class="notes-cell">{{ appt.notes || '—' }}</td>
+              <td>{{ appt.createdAt | date: 'MMM d, y' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
