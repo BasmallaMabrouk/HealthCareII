@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AdminService, DashboardStats } from '../../../core/services/admin';
+import { AuthService } from '../../../core/services/auth';
 
 
 @Component({
@@ -16,7 +17,11 @@ export class Dashboard implements OnInit {
   loading = true;
   error = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.adminService.getDashboardStats().subscribe({
@@ -29,5 +34,9 @@ export class Dashboard implements OnInit {
         this.loading = false;
       },
     });
+  }
+   logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }

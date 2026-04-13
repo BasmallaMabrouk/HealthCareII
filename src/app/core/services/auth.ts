@@ -9,6 +9,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  /** Check if email already exists */
+  getUserByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users?email=${email}`);
+  }
+
+  getUserByPhone(phone: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users?phone=${phone}`);
+  }
+
+  updatePassword(userId: string, newPassword: string): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/users/${userId}`, { password: newPassword });
+  }
+
+  /**
+   * Login: fetch user by email+password, store in localStorage
+   */
   login(email: string, password: string): Observable<User> {
     return this.http
       .get<User[]>(`${this.apiUrl}/users?email=${email}&password=${password}`)
@@ -22,6 +38,18 @@ export class AuthService {
           localStorage.setItem('token', `fake-token-${user.id}`);
         })
       );
+  }
+
+  /**
+   * Register a new user (always as patient from public register page)
+   */
+  register(userData: Omit<User, 'id'>): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/users`, userData).pipe(
+      tap(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('token', `fake-token-${user.id}`);
+      })
+    );
   }
 
   logout(): void {
@@ -38,7 +66,24 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  getRole(): string | null {
+  isAuthenticated(): boolean {
+    return this.isLoggedIn();
+  }
+
+  getRole(): 'admin' | 'doctor' | 'patient' | null {
     return this.getCurrentUser()?.role ?? null;
+  }
+
+  /**
+   * Returns the correct dashboard route array based on user role.
+   */
+  getDashboardRoute(): string[] {
+    const role = this.getRole();
+    if (role === 'admin') return ['/admin/dashboard'];
+    if (role === 'doctor') {
+      const user = this.getCurrentUser();
+      return [`/doctor/${user?.id}/dashboard`];
+    }
+    return ['/patient/dashboard'];
   }
 }

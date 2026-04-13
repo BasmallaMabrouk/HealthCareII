@@ -17,11 +17,11 @@ export class DoctorService {
 
   // ─── Doctor ───────────────────────────────────────────────
   getDoctorProfile(id: string): Observable<Doctor> {
-    return this.http.get<Doctor>(`${this.api}/users/${id}`);
+   return this.http.get<Doctor>(`${this.api}/${id}`);
   }
 
   updateDoctorProfile(id: string, data: Partial<Doctor>): Observable<Doctor> {
-    return this.http.put<Doctor>(`${this.api}/users/${id}`, data);
+    return this.http.put<Doctor>(`${this.api}/${id}`, data);
   }
 
   // ─── Appointments ─────────────────────────────────────────

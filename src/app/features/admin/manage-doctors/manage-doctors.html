@@ -63,9 +63,9 @@
         <tbody>
           <ng-container *ngFor="let doctor of doctors; let i = index">
 
-            <!-- Normal row -->
-            <!-- <tr *ngIf="editingDoctorId !== doctor.id">
-              <td>{{ i + 1 }}</td>
+           
+            <tr *ngIf="editingDoctorId !== doctor.id">
+            <td>{{ i + 1 }}</td>
               <td>
                 <div class="doctor-cell">
                   <div class="avatar">{{ doctor.name.charAt(0) }}</div>
@@ -77,15 +77,15 @@
               </td>
               <td><span class="badge badge-spec">{{ doctor.specialization }}</span></td>
               <td>{{ doctor.experience }} yrs</td>
-              <td>{{ doctor.phone }}</td>
-              <!-- <td><span class="rating">⭐ {{ doctor.rating ?? 0 }}</span></td> -->
-              <!-- <td>
+              <td>{{ doctor.phone }}</td> 
+               <td><span class="rating">⭐ {{ doctor.rating ?? 0 }}</span></td>
+              <td>
                 <div class="action-group">
                   <button type="button" class="btn-icon edit" title="Edit" (click)="startEdit(doctor)">✏️</button>
                   <button type="button" class="btn-icon delete" title="Delete" (click)="deleteDoctor(doctor)">🗑️</button>
                 </div>
               </td>
-            </tr> --> -->
+            </tr>
 
             <!-- Inline edit row -->
             <tr *ngIf="editingDoctorId === doctor.id" class="edit-row" [formGroup]="doctorForm">

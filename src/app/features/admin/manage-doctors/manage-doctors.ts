@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AdminService } from '../../../core/services/admin';
-import { User } from '../../../core/models/user.model';
 import { Doctor } from '../../../core/models/doctor.model';
 
 @Component({
@@ -15,7 +14,7 @@ import { Doctor } from '../../../core/models/doctor.model';
   styleUrl: './manage-doctors.css',
 })
 export class ManageDoctorsComponent implements OnInit {
-  doctors: User[] = [];
+  doctors: Doctor[] = [];
   loading = true;
   error = '';
   successMsg = '';
@@ -50,8 +49,9 @@ export class ManageDoctorsComponent implements OnInit {
 
   loadDoctors(): void {
     this.loading = true;
+
     this.adminService.getDoctors().subscribe({
-      next: (data) => {
+      next: (data: Doctor[]) => {
         this.doctors = data;
         this.loading = false;
       },
@@ -66,6 +66,7 @@ export class ManageDoctorsComponent implements OnInit {
     this.editingDoctorId = doctor.id;
     this.successMsg = '';
     this.error = '';
+
     this.doctorForm = this.fb.group({
       name: [doctor.name, [Validators.required, Validators.minLength(3)]],
       email: [doctor.email, [Validators.required, Validators.email]],
@@ -81,12 +82,14 @@ export class ManageDoctorsComponent implements OnInit {
     this.error = '';
   }
 
-  saveEdit(doctor: User): void {
+  saveEdit(doctor: Doctor): void {
     if (this.doctorForm.invalid) {
       this.doctorForm.markAllAsTouched();
       return;
     }
+
     this.submitting = true;
+
     const formVal = this.doctorForm.value;
 
     const updated: Doctor = {
@@ -97,8 +100,8 @@ export class ManageDoctorsComponent implements OnInit {
       specialization: formVal.specialization,
       experience: formVal.experience,
       bio: formVal.bio,
-      patients: 0,
-      availableSlots: [],
+      patients: doctor.patients ?? 0,
+      availableSlots: doctor.availableSlots ?? [],
     };
 
     this.adminService.updateDoctor(doctor.id, updated).subscribe({
@@ -107,6 +110,7 @@ export class ManageDoctorsComponent implements OnInit {
         this.submitting = false;
         this.editingDoctorId = null;
         this.loadDoctors();
+
         setTimeout(() => (this.successMsg = ''), 3000);
       },
       error: () => {
@@ -116,8 +120,9 @@ export class ManageDoctorsComponent implements OnInit {
     });
   }
 
-  deleteDoctor(doctor: User): void {
+  deleteDoctor(doctor: Doctor): void {
     if (!confirm(`Are you sure you want to remove Dr. ${doctor.name}?`)) return;
+
     this.adminService.deleteDoctor(doctor.id).subscribe({
       next: () => this.loadDoctors(),
       error: () => {

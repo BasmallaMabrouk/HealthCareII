@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map } from 'rxjs';
+
 import { User } from '../models/user.model';
+import { Doctor } from '../models/doctor.model';
 import { Appointment } from '../models/appointment.model';
 
 export interface DashboardStats {
@@ -20,7 +22,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  // ─── Dashboard ────────────────────────────────────────────────────────────
+  // ───────────────────────── DASHBOARD ─────────────────────────
   getDashboardStats(): Observable<DashboardStats> {
     return forkJoin({
       doctors: this.http.get<User[]>(`${this.apiUrl}/users?role=doctor`),
@@ -39,28 +41,31 @@ export class AdminService {
     );
   }
 
-  // ─── Doctors ──────────────────────────────────────────────────────────────
-  getDoctors(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users?role=doctor`);
+  // ───────────────────────── DOCTORS ─────────────────────────
+  getDoctors(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/users?role=doctor`);
   }
 
-  getDoctorById(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+  getDoctorById(id: string): Observable<Doctor> {
+    return this.http.get<Doctor>(`${this.apiUrl}/users/${id}`);
   }
 
-  addDoctor(doctor: Omit<User, 'id'>): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users`, doctor);
+  addDoctor(doctor: Omit<Doctor, 'id'>): Observable<Doctor> {
+    return this.http.post<Doctor>(`${this.apiUrl}/users`, {
+      ...doctor,
+      role: 'doctor',
+    });
   }
 
-  updateDoctor(id: string, doctor: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${id}`, doctor);
+  updateDoctor(id: string, doctor: Partial<Doctor>): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.apiUrl}/users/${id}`, doctor);
   }
 
   deleteDoctor(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
   }
 
-  // ─── Patients ─────────────────────────────────────────────────────────────
+  // ───────────────────────── PATIENTS ─────────────────────────
   getPatients(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users?role=patient`);
   }
@@ -70,7 +75,10 @@ export class AdminService {
   }
 
   addPatient(patient: Omit<User, 'id'>): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users`, patient);
+    return this.http.post<User>(`${this.apiUrl}/users`, {
+      ...patient,
+      role: 'patient',
+    });
   }
 
   updatePatient(id: string, patient: Partial<User>): Observable<User> {
@@ -88,7 +96,7 @@ export class AdminService {
     });
   }
 
-  // ─── Appointments ─────────────────────────────────────────────────────────
+  // ───────────────────────── APPOINTMENTS ─────────────────────────
   getAllAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${this.apiUrl}/appointments`);
   }
@@ -109,7 +117,7 @@ export class AdminService {
     return this.http.delete<void>(`${this.apiUrl}/appointments/${id}`);
   }
 
-  // ─── Shared ───────────────────────────────────────────────────────────────
+  // ───────────────────────── SHARED ─────────────────────────
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }

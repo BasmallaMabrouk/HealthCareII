@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DoctorService } from '../../../core/services/doctor.service';
+
 import { Doctor } from '../../../core/models/doctor.model';
 import { Router, RouterLink } from '@angular/router';
+import { DoctorService } from '../../../core/services/doctor.service';
 
 @Component({
   selector: 'app-doctor-list',

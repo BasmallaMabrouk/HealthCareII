@@ -1,5 +1,33 @@
 {
   "users": [
+
+    {
+  "id": "6",
+  "name": "Ali Hassan",
+  "email": "ali@patient.com",
+  "password": "patient123",
+  "phone": "01055555555",
+  "role": "patient",
+  "createdAt": "2026-04-01"
+},
+{
+  "id": "7",
+  "name": "Nour Ahmed",
+  "email": "nour@patient.com",
+  "password": "123456",
+  "phone": "01066666666",
+  "role": "patient",
+  "createdAt": "2026-04-02"
+},
+{
+  "id": "8",
+  "name": "Omar Khaled",
+  "email": "omar@patient.com",
+  "password": "123456",
+  "phone": "01077777777",
+  "role": "patient",
+  "createdAt": "2026-04-03"
+},
     {
       "id": "1",
       "name": "Admin User",
@@ -19,6 +47,7 @@
       "specialization": "Cardiology",
       "experience": 10,
       "bio": "Experienced cardiologist with 10 years in heart care.",
+      "patients": 0,
       "availableSlots": [
         { "day": "Sunday", "startTime": "09:00", "endTime": "09:30", "isBooked": false },
         { "day": "Sunday", "startTime": "09:30", "endTime": "10:00", "isBooked": false },
@@ -40,6 +69,7 @@
       "specialization": "Dermatology",
       "experience": 7,
       "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
+      "patients": 0,
       "availableSlots": [
         { "day": "Monday", "startTime": "10:00", "endTime": "10:30", "isBooked": false },
         { "day": "Monday", "startTime": "10:30", "endTime": "11:00", "isBooked": false },
@@ -50,7 +80,7 @@
       "createdAt": "2026-02-01"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Mohamed Ali",
       "email": "mohamed@patient.com",
       "password": "patient123",
@@ -66,30 +96,104 @@
       "phone": "01044444444",
       "role": "patient",
       "createdAt": "2026-03-10"
+    },
+    {
+      "name": "Malak Khaled",
+      "email": "malakkhaledme4@gmail.com",
+      "password": "patient123",
+      "phone": "01144686867",
+      "role": "patient",
+      "isActive": true,
+      "createdAt": "2026-04-13T15:09:23.272Z",
+      "id": "2w60BlFHyPU"
+    },
+    {
+      "name": "Dr. Badawy Ahmed",
+      "email": "Badawy@gmail.com",
+      "password": "123456",
+      "phone": "01123665982",
+      "specialization": "ENT",
+      "experience": 5,
+      "bio": "Dr. Badawy Ahmed",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "patients": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "M58U6fevP08"
+    },
+    {
+      "name": "Dr. shahd Khaled",
+      "email": "shahd@gmail.com",
+      "password": "147369",
+      "phone": "01110699773",
+      "specialization": "General Practice",
+      "experience": 4,
+      "bio": "Dr, shahd Khaled",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "patients": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "J1ClD7pTzOc"
     }
   ],
   "appointments": [
-    {
-      "id": "1",
-      "patientId": "4",
-      "doctorId": "2",
-      "date": "2026-04-10",
-      "timeSlot": "09:00 - 09:30",
-      "status": "confirmed",
-      "notes": "Regular checkup",
-      "createdAt": "2026-03-25"
-    },
-    {
-      "id": "2",
-      "patientId": "5",
-      "doctorId": "3",
-      "date": "2026-04-12",
-      "timeSlot": "10:00 - 10:30",
-      "status": "pending",
-      "notes": "Skin rash consultation",
-      "createdAt": "2026-03-28"
-    }
-  ],
+  {
+    "id": "1",
+    "patientId": "4",
+    "doctorId": "2",
+    "date": "2026-04-10",
+    "timeSlot": "09:00 - 09:30",
+    "status": "confirmed",
+    "notes": "Regular checkup",
+    "createdAt": "2026-03-25"
+  },
+  {
+    "id": "2",
+    "patientId": "5",
+    "doctorId": "3",
+    "date": "2026-04-12",
+    "timeSlot": "10:00 - 10:30",
+    "status": "pending",
+    "notes": "Skin rash consultation",
+    "createdAt": "2026-03-28"
+  },
+  {
+    "id": "3",
+    "patientId": "6",
+    "doctorId": "2",
+    "date": "2026-04-14",
+    "timeSlot": "10:00 - 10:30",
+    "status": "confirmed",
+    "notes": "Heart checkup",
+    "createdAt": "2026-04-01"
+  },
+  {
+    "id": "4",
+    "patientId": "7",
+    "doctorId": "2",
+    "date": "2026-04-15",
+    "timeSlot": "11:00 - 11:30",
+    "status": "pending",
+    "notes": "Follow-up visit",
+    "createdAt": "2026-04-02"
+  },
+  {
+    "id": "5",
+    "patientId": "8",
+    "doctorId": "3",
+    "date": "2026-04-16",
+    "timeSlot": "12:00 - 12:30",
+    "status": "confirmed",
+    "notes": "Skin allergy check",
+    "createdAt": "2026-04-03"
+  }
+],
   "prescriptions": [
     {
       "id": "1",
@@ -119,5 +223,6 @@
       "notes": "Patient advised to reduce salt intake and exercise regularly.",
       "date": "2026-04-10"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

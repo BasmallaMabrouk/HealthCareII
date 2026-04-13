@@ -4,19 +4,20 @@ import { DoctorAppointmentsComponent } from '../doctor/Components/appointment/ap
 import { AppointmentDetailComponent } from '../doctor/Components/appointment-detail/appointment-detail';
 import { DoctorProfileComponent } from '../doctor/Components/doctor-profile/doctor-profile';
 import { DoctorLayoutComponent } from '../doctor/Components/doctor-layout/doctor-layout';
+import { authGuard } from '../../core/guards/role-guard';
 
 export const DOCTOR_ROUTES: Routes = [
   {
-    path: ':doctorId', // ← /doctor/2  or  /doctor/3
+    path: ':doctorId',
     component: DoctorLayoutComponent,
+    canActivate: [authGuard],
     children: [
-      { path: 'dashboard', component: DoctorDashboardComponent },
-      { path: 'appointments', component: DoctorAppointmentsComponent },
+      { path: 'dashboard',        component: DoctorDashboardComponent },
+      { path: 'appointments',     component: DoctorAppointmentsComponent },
       { path: 'appointments/:id', component: AppointmentDetailComponent },
-      { path: 'profile', component: DoctorProfileComponent },
+      { path: 'profile',          component: DoctorProfileComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
-  // fallback: لو حد فتح /doctor بدون id
-  { path: '', redirectTo: '2/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];

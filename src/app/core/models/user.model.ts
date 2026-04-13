@@ -15,10 +15,10 @@ export interface User {
   isActive?: boolean;
   createdAt: string;
   // Doctor-specific
-  // specialization?: string;
-  // experience?: number;
-  // bio?: string;
-  // availableSlots?: AvailableSlot[];
-  // rating?: number;
-  // reviewCount?: number;
+  specialization?: string;
+  experience?: number;
+  bio?: string;
+  availableSlots?: AvailableSlot[];
+  rating?: number;
+  reviewCount?: number;
 }

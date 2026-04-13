@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,13 @@ import { AuthService } from '../../../core/services/auth.service';
 export class Login {
   loginForm: FormGroup;
   isLoading = false;
-  errorMsg = '';
+  errorMsg  = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb:          FormBuilder,
+    private authService: AuthService,
+    private router:      Router
+  ) {
     this.loginForm = this.fb.group({
       email:    ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -26,26 +30,28 @@ export class Login {
   onSubmit() {
     if (this.loginForm.invalid) { this.loginForm.markAllAsTouched(); return; }
     this.isLoading = true;
-    this.errorMsg = '';
+    this.errorMsg  = '';
 
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (users) => {
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email, password).subscribe({
+      next: (user) => {
         this.isLoading = false;
-        if (!users || users.length === 0) {
-          this.errorMsg = 'Incorrect email or password. Please try again.';
-          return;
-        }
-        const user = users[0];
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        localStorage.setItem('token', 'fake-token-' + user.id);
 
-        if (user.role === 'admin')        this.router.navigate(['/admin/dashboard']);
-        else if (user.role === 'doctor')  this.router.navigate(['/doctor/dashboard']);
-        else                              this.router.navigate(['/patient/dashboard']);
+        // ── Role-based redirect ───────────────────────────────────────────
+        if (user.role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (user.role === 'doctor') {
+          // Doctor dashboard uses the doctor's own ID in the URL
+          this.router.navigate([`/doctor/${user.id}/dashboard`]);
+        } else {
+          // Default: patient
+          this.router.navigate(['/patient/dashboard']);
+        }
       },
       error: () => {
         this.isLoading = false;
-        this.errorMsg = 'Connection error. Make sure JSON Server is running.';
+        this.errorMsg = 'Incorrect email or password. Please try again.';
       }
     });
   }

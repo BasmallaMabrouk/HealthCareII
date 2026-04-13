@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { roleGuard } from '../../core/guards/role-guard';
+import { authGuard } from '../../core/guards/role-guard';
 
 export const adminRoutes: Routes = [
   {
     path: '',
-    canActivate: [roleGuard(['admin'])],
+    canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
