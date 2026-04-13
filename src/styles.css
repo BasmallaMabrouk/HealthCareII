@@ -103,58 +103,7 @@ body {
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* ── CSS Variables ── */
-:root {
-  /* Fonts */
-  --font-body:    'Inter', sans-serif;
-  --font-display: 'Playfair Display', serif;
 
-  /* Plum Palette */
-  --plum-dark:    #2D1245;
-  --plum:         #5C2D6E;
-  --plum-light:   #7B4F8A;
-  --mauve:        #9B72B0;
-  --mauve-light:  #C4A8D4;
-  --plum-mist:    #F5F0F8;
-  --plum-soft:    #EDE0F5;
-
-  /* Accent */
-  --accent:       #C8364A;
-  --accent-soft:  #FCEEF1;
-
-  /* Backgrounds */
-  --bg-main:      #F7F5FA;
-  --bg-white:     #FFFFFF;
-
-  /* Text */
-  --text-dark:    #1A0A2E;
-  --text-mid:     #4A3060;
-  --text-muted:   #9580A8;
-
-  /* Border */
-  --border:       #E5DDF0;
-  --border-mid:   #C9BBDA;
-
-  /* Semantic */
-  --success:      #1A9E6A;
-  --success-soft: #E8F8F2;
-  --warning:      #D4820A;
-  --warning-soft: #FEF5E4;
-  --danger:       #C8364A;
-  --danger-soft:  #FCEEF1;
-
-  /* Shadows */
-  --shadow-sm:    0 1px 4px rgba(92, 45, 110, 0.08);
-  --shadow-md:    0 4px 16px rgba(92, 45, 110, 0.12);
-  --shadow-plum:  0 6px 24px rgba(92, 45, 110, 0.28);
-
-  /* Legacy aliases (keep for any old code) */
-  --primary-color:  var(--plum);
-  --primary-hover:  var(--plum-dark);
-  --accent-color:   var(--success);
-  --danger-color:   var(--danger);
-  --border-color:   var(--border);
-  --font-family:    var(--font-body);
-}
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
