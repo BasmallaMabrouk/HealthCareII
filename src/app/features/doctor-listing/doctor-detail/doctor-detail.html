@@ -35,8 +35,8 @@
       <div class="slots-section">
         <h3>Available Slots</h3>
         <div class="slots-grid">
-          <div 
-            *ngFor="let slot of doctor.availableSlots" 
+          <div
+            *ngFor="let slot of doctor.availableSlots"
             class="slot-item"
             [class.booked]="slot.isBooked"
             [class.selected]="selectedSlot === slot"
@@ -45,6 +45,18 @@
             <span class="time">{{ slot.startTime }} - {{ slot.endTime }}</span>
             <span class="status-text">{{ slot.isBooked ? 'Full' : 'Available' }}</span>
           </div>
+        </div>
+
+        <!-- ✅ Success message -->
+        <div *ngIf="bookingSuccess" class="booking-success">
+          <span class="material-icons">check_circle</span>
+          Booking sent! Waiting for doctor confirmation...
+        </div>
+
+        <!-- ✅ Pending note -->
+        <div *ngIf="!bookingSuccess" class="booking-note">
+          <span class="material-icons">info</span>
+          Your request will be <strong>pending</strong> until the doctor confirms it.
         </div>
 
         <button 

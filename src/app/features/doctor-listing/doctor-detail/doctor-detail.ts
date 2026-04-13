@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './doctor-detail.html',
-  styleUrl: './doctor-detail.css'
+  styleUrl: './doctor-detail.css',
 })
 export class DoctorDetailComponent implements OnInit {
   doctor: Doctor | null = null;
@@ -23,7 +23,7 @@ export class DoctorDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private appointmentService: AppointmentService,
     private doctorService: DoctorService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class DoctorDetailComponent implements OnInit {
         error: (err) => {
           console.error('Error fetching doctor details', err);
           this.isLoading = false;
-        }
+        },
       });
     }
   }

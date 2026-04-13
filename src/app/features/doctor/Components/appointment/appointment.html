@@ -1,97 +1,141 @@
-<div class="appointments-container">
-  <div class="appointments-header">
-    <div class="header-info">
-      <h2>Appointments</h2>
-      <p>Manage your patient visits and schedules</p>
-    </div>
-    <div class="header-actions">
-      <button class="btn" style="background: var(--bg-white); border: 1px solid var(--border); color: var(--text-mid);">
-        <span class="material-icons">filter_list</span>
-        <span>Filter</span>
-      </button>
-      <button class="btn btn-primary">
-        <span class="material-icons">download</span>
-        <span>Export</span>
-      </button>
+<div class="appts-container">
+
+  <!-- ── Page Header ── -->
+  <div class="appts-header">
+    <div>
+      <h2 class="appts-title">Appointments</h2>
+      <p class="appts-sub">Review, confirm or cancel patient bookings</p>
     </div>
   </div>
 
-  <div class="card table-card">
-    <table>
-      <thead>
-        <tr>
-          <th>Patient</th>
-          <th>Date & Time</th>
-          <th>Status</th>
-          <th style="text-align: right;">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (appt of appointments; track appt.id) {
-          <tr>
-            <td>
-              <div class="patient-cell">
-                <div class="patient-init">
-                  {{ getPatientName(appt.patientId).charAt(0) }}
-                </div>
-                <div>
-                  <p style="font-weight: 600; color: var(--text-dark);">
-                    {{ getPatientName(appt.patientId) }}
-                  </p>
-                  <p style="font-size: 0.7rem; color: var(--text-muted);">
-                    ID: #{{ appt.patientId }}
-                  </p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="time-cell">
-                <span class="date">{{ appt.date }}</span>
-                <span class="slot">{{ appt.timeSlot }}</span>
-              </div>
-            </td>
-            <td>
-              <span [class]="'badge ' +
-                (appt.status === 'confirmed' ? 'badge-success' :
-                 appt.status === 'pending'   ? 'badge-warning' : 'badge-danger')">
-                {{ appt.status }}
-              </span>
-            </td>
-            <td>
-              <div class="actions-cell">
-                <!-- View Detail — dynamic doctorId -->
-                <a
-                  [routerLink]="['/doctor', doctorId, 'appointments', appt.id]"
-                  class="action-btn view-btn"
-                  title="View Details">
-                  <span class="material-icons" style="font-size: 18px;">open_in_new</span>
-                </a>
+  <!-- ── Filter Tabs ── -->
+  <div class="filter-bar">
+    <button class="filter-tab" [class.active]="activeFilter === 'all'"
+            (click)="activeFilter = 'all'">
+      All <span class="tab-count">{{ counts.all }}</span>
+    </button>
+    <button class="filter-tab pending-tab" [class.active]="activeFilter === 'pending'"
+            (click)="activeFilter = 'pending'">
+      <span class="dot dot-pending"></span> Pending <span class="tab-count">{{ counts.pending }}</span>
+    </button>
+    <button class="filter-tab confirmed-tab" [class.active]="activeFilter === 'confirmed'"
+            (click)="activeFilter = 'confirmed'">
+      <span class="dot dot-confirmed"></span> Confirmed <span class="tab-count">{{ counts.confirmed }}</span>
+    </button>
+    <button class="filter-tab completed-tab" [class.active]="activeFilter === 'completed'"
+            (click)="activeFilter = 'completed'">
+      <span class="dot dot-completed"></span> Completed <span class="tab-count">{{ counts.completed }}</span>
+    </button>
+    <button class="filter-tab cancelled-tab" [class.active]="activeFilter === 'cancelled'"
+            (click)="activeFilter = 'cancelled'">
+      <span class="dot dot-cancelled"></span> Cancelled <span class="tab-count">{{ counts.cancelled }}</span>
+    </button>
+  </div>
 
-                @if (appt.status === 'pending') {
-                  <button
-                    (click)="changeStatus(appt.id, 'confirmed')"
-                    class="action-btn btn-confirm"
-                    title="Confirm">
-                    <span class="material-icons" style="font-size: 18px;">check</span>
-                  </button>
+  <!-- ── Loading ── -->
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading appointments...</p>
+    </div>
+  }
+
+  <!-- ── Empty ── -->
+  @if (!isLoading && filteredAppointments.length === 0) {
+    <div class="empty-state">
+      <span class="material-icons">event_busy</span>
+      <p>No appointments found</p>
+    </div>
+  }
+
+  <!-- ── Appointments List ── -->
+  @if (!isLoading && filteredAppointments.length > 0) {
+    <div class="appts-list">
+      @for (appt of filteredAppointments; track appt.id) {
+        <div class="appt-card" [ngClass]="'card-' + appt.status">
+
+          <!-- Left accent bar -->
+          <div class="accent-bar" [ngClass]="'bar-' + appt.status"></div>
+
+          <!-- Patient info -->
+          <div class="patient-section">
+            <div class="patient-avatar" [ngClass]="'avatar-' + appt.status">
+              {{ getInitials(getPatientName(appt.patientId)) }}
+            </div>
+            <div class="patient-info">
+              <h4 class="patient-name">{{ getPatientName(appt.patientId) }}</h4>
+              <div class="appt-meta">
+                <span class="meta-item">
+                  <span class="material-icons">calendar_today</span>
+                  {{ appt.date }}
+                </span>
+                <span class="meta-item">
+                  <span class="material-icons">schedule</span>
+                  {{ appt.timeSlot }}
+                </span>
+                @if (appt.notes) {
+                  <span class="meta-item notes-item">
+                    <span class="material-icons">sticky_note_2</span>
+                    {{ appt.notes }}
+                  </span>
                 }
-                <button
-                  (click)="changeStatus(appt.id, 'cancelled')"
-                  class="action-btn btn-cancel"
-                  title="Cancel">
-                  <span class="material-icons" style="font-size: 18px;">close</span>
-                </button>
               </div>
-            </td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="4" style="padding: 4rem; text-align: center; color: var(--text-muted); font-style: italic;">
-              No appointments found
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+            </div>
+          </div>
+
+          <!-- Status badge -->
+          <div class="status-section">
+            <span class="status-badge badge-{{ appt.status }}">
+              @if (appt.status === 'pending') { <span class="material-icons">hourglass_empty</span> }
+              @if (appt.status === 'confirmed') { <span class="material-icons">check_circle</span> }
+              @if (appt.status === 'completed') { <span class="material-icons">task_alt</span> }
+              @if (appt.status === 'cancelled') { <span class="material-icons">cancel</span> }
+              {{ appt.status | titlecase }}
+            </span>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="actions-section">
+            <!-- View detail always available -->
+            <button class="action-btn btn-view" (click)="viewDetail(appt)" title="View & Edit">
+              <span class="material-icons">open_in_new</span>
+              <span>View</span>
+            </button>
+
+            <!-- Confirm: only for pending -->
+            @if (appt.status === 'pending') {
+              <button class="action-btn btn-confirm"
+                      [disabled]="actionLoading[appt.id]"
+                      (click)="confirm(appt)" title="Confirm appointment">
+                <span class="material-icons">{{ actionLoading[appt.id] ? 'hourglass_empty' : 'check' }}</span>
+                <span>Confirm</span>
+              </button>
+            }
+
+            <!-- Complete: only for confirmed -->
+            @if (appt.status === 'confirmed') {
+              <button class="action-btn btn-complete"
+                      [disabled]="actionLoading[appt.id]"
+                      (click)="complete(appt)" title="Mark as completed">
+                <span class="material-icons">{{ actionLoading[appt.id] ? 'hourglass_empty' : 'task_alt' }}</span>
+                <span>Complete</span>
+              </button>
+            }
+
+            <!-- Cancel: for pending or confirmed -->
+            @if (appt.status === 'pending' || appt.status === 'confirmed') {
+              <button class="action-btn btn-cancel"
+                      [disabled]="actionLoading[appt.id]"
+                      (click)="cancel(appt)" title="Cancel appointment">
+                <span class="material-icons">close</span>
+                <span>Cancel</span>
+              </button>
+            }
+          </div>
+
+        </div>
+      }
+    </div>
+  }
+
 </div>
