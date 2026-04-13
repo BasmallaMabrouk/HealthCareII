@@ -1,4 +1,13 @@
 <div class="profile-container" *ngIf="doctor && !isLoading">
+
+  <!-- Success Toast -->
+  <div class="success-toast" *ngIf="bookingSuccess">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    Appointment booked! Redirecting…
+  </div>
+
   <div class="profile-card">
     <div class="profile-header">
       <div class="doctor-info-main">
@@ -40,11 +49,15 @@
 
         <button 
           class="confirm-btn" 
-          [disabled]="!selectedSlot" 
+          [disabled]="!selectedSlot || bookingSuccess" 
           (click)="confirmBooking()">
-          Confirm Booking {{ selectedSlot ? 'for ' + selectedSlot.day : '' }}
+          {{ bookingSuccess ? 'Booked ✓' : ('Confirm Booking' + (selectedSlot ? ' for ' + selectedSlot.day : '')) }}
         </button>
       </div>
     </div>
   </div>
+</div>
+
+<div class="loader-screen" *ngIf="isLoading">
+  <div class="spinner"></div>
 </div>

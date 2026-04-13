@@ -9,6 +9,13 @@ import { authGuard, roleGuard } from './core/guards/role-guard';
 
 export const routes: Routes = [
 
+  // ── Home (public landing page) ───────────────────────────────────────────
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home/home').then(m => m.HomeComponent)
+  },
+
   // ── Auth (public) ────────────────────────────────────────────────────────
   {
     path: 'auth',
@@ -73,6 +80,6 @@ export const routes: Routes = [
   },
 
   // ── Default & wildcard ────────────────────────────────────────────────────
-  { path: '',   redirectTo: 'auth/register', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth/register' }
+  { path: '',   redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' }
 ];

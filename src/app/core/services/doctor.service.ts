@@ -8,14 +8,22 @@ import { User } from '../../core/models/user.model';
 @Injectable({
   providedIn: 'root',
 })
+<<<<<<< HEAD
 export class DoctorService {
   // ✅ Fix: was '/users' which broke all /appointments and /users sub-calls
   private api = 'http://localhost:3000';
+=======
+
+
+export class DoctorService {
+  private api = 'http://localhost:3000/users';
+>>>>>>> 771e485 (add home page)
 
   constructor(private http: HttpClient) {}
 
   // ─── Doctor ───────────────────────────────────────────────
   getDoctorProfile(id: string): Observable<Doctor> {
+<<<<<<< HEAD
     return this.http.get<Doctor>(`${this.api}/users/${id}`);
   }
 
@@ -25,6 +33,18 @@ export class DoctorService {
 
   // ─── Appointments ─────────────────────────────────────────
   // json-server v1 doesn't filter by query params reliably → client-side filter
+=======
+   return this.http.get<Doctor>(`${this.api}/${id}`);
+  }
+
+  updateDoctorProfile(id: string, data: Partial<Doctor>): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.api}/${id}`, data);
+  }
+
+  // ─── Appointments ─────────────────────────────────────────
+  // json-server v1 مش بيعمل filter بـ query params صح
+  // فبنجيب الكل ونعمل filter على client side
+>>>>>>> 771e485 (add home page)
   getDoctorAppointments(doctorId: string): Observable<Appointment[]> {
     return this.http
       .get<Appointment[]>(`${this.api}/appointments`)
@@ -73,7 +93,10 @@ export class DoctorService {
   }
 
   // ─── Patients ─────────────────────────────────────────────
+<<<<<<< HEAD
   // ✅ Fix: was `${this.api}/users/${id}` which resolved to /users/users/id
+=======
+>>>>>>> 771e485 (add home page)
   getPatient(id: string): Observable<User> {
     return this.http.get<User>(`${this.api}/users/${id}`);
   }
@@ -84,14 +107,23 @@ export class DoctorService {
       .pipe(map((users) => users.filter((u) => u.role === 'patient')));
   }
 
+<<<<<<< HEAD
   // ─── Doctors (for listing) ────────────────────────────────
   getDoctors(): Observable<Doctor[]> {
     const params = new HttpParams().set('role', 'doctor');
     return this.http.get<Doctor[]>(`${this.api}/users`, { params });
+=======
+
+
+  getDoctors(): Observable<Doctor[]> {
+    const params = new HttpParams().set('role', 'doctor');
+    return this.http.get<Doctor[]>(this.api, { params });
+>>>>>>> 771e485 (add home page)
   }
 
   searchDoctors(name: string, specialty: string): Observable<Doctor[]> {
     let params = new HttpParams().set('role', 'doctor');
+<<<<<<< HEAD
     if (name) params = params.set('name_like', name);
     if (specialty && specialty !== 'All') params = params.set('specialization', specialty);
     return this.http.get<Doctor[]>(`${this.api}/users`, { params });
@@ -99,5 +131,20 @@ export class DoctorService {
 
   getDoctorById(id: string): Observable<Doctor> {
     return this.http.get<Doctor>(`${this.api}/users/${id}`);
+=======
+
+    if (name) {
+      params = params.set('name_like', name);
+    }
+    if (specialty && specialty !== 'All') {
+      params = params.set('specialization', specialty);
+    }
+
+    return this.http.get<Doctor[]>(this.api, { params });
+  }
+
+  getDoctorById(id: string): Observable<Doctor> {
+    return this.http.get<Doctor>(`${this.api}/${id}`);
+>>>>>>> 771e485 (add home page)
   }
 }

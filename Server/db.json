@@ -216,7 +216,44 @@
       "timeSlot": "10:00 - 10:30",
       "status": "confirmed",
       "notes": "Skin rash consultation",
+<<<<<<< HEAD
       "createdAt": "2026-03-28"
+=======
+      "createdAt": "2026-03-28",
+      "medicalHistory": {
+        "symptoms": "دماغها تعبانه ",
+        "allergies": "لازم متتعملش مع بني ادمين",
+        "chronicDiseases": "",
+        "previousSurgeries": "اي حاجه",
+        "currentMedications": ""
+      },
+      "prescription": {
+        "notes": "",
+        "medicines": [
+          {
+            "id": "m1776108725556hs5",
+            "name": "عدم التعامل",
+            "dose": "1000mg",
+            "frequency": "24x24",
+            "duration": "alife"
+          },
+          {
+            "id": "m17761088414394ji",
+            "name": "دوليبرام",
+            "dose": "1000",
+            "frequency": "15",
+            "duration": "9ايام"
+          },
+          {
+            "id": "m177610964657990j",
+            "name": "بانادول",
+            "dose": "100",
+            "frequency": "3",
+            "duration": "6"
+          }
+        ]
+      }
+>>>>>>> 771e485 (add home page)
     },
     {
       "id": "3",

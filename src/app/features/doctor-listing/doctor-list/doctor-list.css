@@ -85,6 +85,13 @@
   box-shadow: 0 10px 30px rgba(92, 45, 110, 0.14);
 }
 
+/* Card Top: avatar + rating */
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .doctor-avatar {
   width: 56px;
   height: 56px;
@@ -99,42 +106,88 @@
   flex-shrink: 0;
 }
 
-.doctor-info h3 {
+.rating-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #FFFBEA;
+  border: 1px solid #FFD700;
+  color: #8A6A00;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* Card Info */
+.card-info h3 {
   font-size: 1rem;
   font-weight: 700;
   color: #1E0A2E;
   margin-bottom: 4px;
 }
 
-.specialty-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  background: #EDE4F3;
+.card-info .specialty {
+  font-size: 0.82rem;
   color: #5C2D6E;
-  border-radius: 20px;
-  font-size: 0.78rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  background: #EDE4F3;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
 }
 
-.doctor-meta {
+.card-info .experience {
   font-size: 0.82rem;
   color: #6B4F7E;
 }
 
+/* Card Footer: two buttons */
+.card-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+/* View Profile — outlined ghost button */
+.view-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 12px;
+  background: transparent;
+  color: #5C2D6E;
+  border: 1.5px solid #5C2D6E;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.view-btn:hover {
+  background: #EDE4F3;
+  border-color: #3D1A4A;
+  color: #3D1A4A;
+}
+
+/* Book Now — filled button */
 .book-btn {
-  width: 100%;
-  padding: 11px;
+  flex: 1;
+  padding: 10px 12px;
   background: linear-gradient(135deg, #5C2D6E 0%, #3D1A4A 100%);
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  display: block;
   transition: all 0.2s;
   box-shadow: 0 4px 14px rgba(92, 45, 110, 0.22);
   font-family: inherit;

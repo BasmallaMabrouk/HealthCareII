@@ -17,6 +17,7 @@ export class DoctorDetailComponent implements OnInit {
   doctor: Doctor | null = null;
   isLoading = true;
   selectedSlot: TimeSlot | null = null;
+  bookingSuccess = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,21 +51,35 @@ export class DoctorDetailComponent implements OnInit {
   confirmBooking() {
     if (this.selectedSlot && this.doctor) {
       const saved = localStorage.getItem('currentUser');
-      const patientId = saved ? JSON.parse(saved).id : null;
+      const currentUser = saved ? JSON.parse(saved) : null;
+      const patientId   = currentUser ? String(currentUser.id) : null;
+      const patientName = currentUser ? currentUser.name : 'Patient';
+
+      const today = new Date();
+      const dateStr = today.toISOString().split('T')[0];
 
       const newAppointment: any = {
-        patientId: patientId,
-        doctorId: Number(this.doctor.id),
-        doctorName: this.doctor.name,
-        date: "2026-04-10",
-        timeSlot: `${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}`,
-        status: "confirmed"
+        patientId:   patientId,
+        patientName: patientName,
+        doctorId:    String(this.doctor.id),   // ← keep as string, matching db.json
+        doctorName:  this.doctor.name,
+        date:        dateStr,
+        timeSlot:    `${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}`,
+        status:      'pending',
+        createdAt:   today.toISOString()
       };
 
       this.appointmentService.bookAppointment(newAppointment).subscribe({
-        next: (res) => {
-          console.log('Booking confirmed:', res);
-          this.router.navigate(['/patient/dashboard']);
+        next: () => {
+          this.bookingSuccess = true;
+          // Navigate to my-appointments so the patient sees the booked appointment
+          setTimeout(() => {
+            this.router.navigate(['/patient/my-appointments']);
+          }, 1200);
+        },
+        error: (err) => {
+          console.error('Booking error:', err);
+          alert('Could not complete booking. Please try again.');
         }
       });
     }
