@@ -1,0 +1,221 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@health.com",
+      "password": "admin123",
+      "phone": "01000000000",
+      "role": "admin",
+      "isActive": true,
+      "createdAt": "2026-01-01"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Ahmed Hassan",
+      "email": "ahmed@health.com",
+      "password": "doctor123",
+      "phone": "01011111111",
+      "role": "doctor",
+      "specialization": "Cardiology",
+      "experience": 10,
+      "bio": "Experienced cardiologist with 10 years in heart care.",
+      "availableSlots": [
+        {
+          "day": "Sunday",
+          "startTime": "09:00",
+          "endTime": "09:30",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "09:30",
+          "endTime": "10:00",
+          "isBooked": false
+        },
+        {
+          "day": "Sunday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": true
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:00",
+          "endTime": "14:30",
+          "isBooked": false
+        },
+        {
+          "day": "Tuesday",
+          "startTime": "14:30",
+          "endTime": "15:00",
+          "isBooked": false
+        }
+      ],
+      "rating": 4.8,
+      "reviewCount": 120,
+      "isActive": true,
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "3",
+      "name": "Dr. Sara Mohamed",
+      "email": "sara@health.com",
+      "password": "doctor123",
+      "phone": "01022222222",
+      "role": "doctor",
+      "specialization": "Dermatology",
+      "experience": 7,
+      "bio": "Skin care specialist focused on treating acne, eczema, and cosmetic dermatology.",
+      "availableSlots": [
+        {
+          "day": "Monday",
+          "startTime": "10:00",
+          "endTime": "10:30",
+          "isBooked": false
+        },
+        {
+          "day": "Monday",
+          "startTime": "10:30",
+          "endTime": "11:00",
+          "isBooked": false
+        },
+        {
+          "day": "Wednesday",
+          "startTime": "13:00",
+          "endTime": "13:30",
+          "isBooked": false
+        }
+      ],
+      "rating": 4.5,
+      "reviewCount": 85,
+      "isActive": true,
+      "createdAt": "2026-02-01"
+    },
+    {
+      "id": "4",
+      "name": "Mohamed Ali",
+      "email": "patient@health.com",
+      "password": "patient123",
+      "phone": "01033333333",
+      "role": "patient",
+      "isActive": true,
+      "createdAt": "2026-03-01"
+    },
+    {
+      "id": "5",
+      "name": "Fatma Ibrahim",
+      "email": "fatma@health.com",
+      "password": "patient123",
+      "phone": "01044444444",
+      "role": "patient",
+      "isActive": true,
+      "createdAt": "2026-03-10"
+    },
+    {
+      "name": "Dr. Malak Khaled",
+      "email": "malakkhaledme4@gmail.com",
+      "password": "123456",
+      "phone": "01144686867",
+      "specialization": "ENT",
+      "experience": 1,
+      "bio": " Dr. Malak khaled with 3 years of experience ",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "EWn3lTi7n0U"
+    },
+    {
+      "name": "Dr. Rofida Ahmed",
+      "email": "Rofida@gmail.com",
+      "password": "123456",
+      "phone": "01144325256",
+      "specialization": "Urology",
+      "experience": 1,
+      "bio": "one year of experince",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-13",
+      "id": "qykO9Swz1zc"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "patientId": "4",
+      "doctorId": "2",
+      "date": "2026-04-10",
+      "timeSlot": "09:00 - 09:30",
+      "status": "confirmed",
+      "notes": "Regular checkup",
+      "createdAt": "2026-03-25"
+    },
+    {
+      "id": "2",
+      "patientId": "5",
+      "doctorId": "3",
+      "date": "2026-04-12",
+      "timeSlot": "10:00 - 10:30",
+      "status": "pending",
+      "notes": "Skin rash consultation",
+      "createdAt": "2026-03-28"
+    },
+    {
+      "id": "3",
+      "patientId": "4",
+      "doctorId": "3",
+      "date": "2026-03-20",
+      "timeSlot": "13:00 - 13:30",
+      "status": "completed",
+      "notes": "Follow-up visit",
+      "createdAt": "2026-03-15"
+    },
+    {
+      "id": "4",
+      "patientId": "5",
+      "doctorId": "2",
+      "date": "2026-03-18",
+      "timeSlot": "14:00 - 14:30",
+      "status": "cancelled",
+      "notes": "Patient cancelled",
+      "createdAt": "2026-03-10"
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "1",
+      "appointmentId": "1",
+      "patientId": "4",
+      "doctorId": "2",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "100mg",
+          "frequency": "Once daily",
+          "duration": "30 days"
+        }
+      ],
+      "diagnosis": "Mild hypertension",
+      "notes": "Monitor blood pressure weekly",
+      "createdAt": "2026-04-10"
+    }
+  ],
+  "medicalRecords": [
+    {
+      "id": "1",
+      "patientId": "4",
+      "doctorId": "2",
+      "appointmentId": "1",
+      "diagnosis": "Mild hypertension",
+      "notes": "Patient advised to reduce salt intake and exercise regularly.",
+      "date": "2026-04-10"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
