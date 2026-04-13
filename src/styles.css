@@ -1,1 +1,210 @@
-/* You can add global styles to this file, and also import other style files */
+/* ═══════════════════════════════════════
+   Global Styles — DocTime (White + Plum)
+═══════════════════════════════════════ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* ── CSS Variables ── */
+:root {
+  /* Fonts */
+  --font-body:    'Inter', sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Plum Palette */
+  --plum-dark:    #2D1245;
+  --plum:         #5C2D6E;
+  --plum-light:   #7B4F8A;
+  --mauve:        #9B72B0;
+  --mauve-light:  #C4A8D4;
+  --plum-mist:    #F5F0F8;
+  --plum-soft:    #EDE0F5;
+
+  /* Accent */
+  --accent:       #C8364A;
+  --accent-soft:  #FCEEF1;
+
+  /* Backgrounds */
+  --bg-main:      #F7F5FA;
+  --bg-white:     #FFFFFF;
+
+  /* Text */
+  --text-dark:    #1A0A2E;
+  --text-mid:     #4A3060;
+  --text-muted:   #9580A8;
+
+  /* Border */
+  --border:       #E5DDF0;
+  --border-mid:   #C9BBDA;
+
+  /* Semantic */
+  --success:      #1A9E6A;
+  --success-soft: #E8F8F2;
+  --warning:      #D4820A;
+  --warning-soft: #FEF5E4;
+  --danger:       #C8364A;
+  --danger-soft:  #FCEEF1;
+
+  /* Shadows */
+  --shadow-sm:    0 1px 4px rgba(92, 45, 110, 0.08);
+  --shadow-md:    0 4px 16px rgba(92, 45, 110, 0.12);
+  --shadow-plum:  0 6px 24px rgba(92, 45, 110, 0.28);
+
+  /* Legacy aliases (keep for any old code) */
+  --primary-color:  var(--plum);
+  --primary-hover:  var(--plum-dark);
+  --accent-color:   var(--success);
+  --danger-color:   var(--danger);
+  --border-color:   var(--border);
+  --font-family:    var(--font-body);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--bg-main);
+  color: var(--text-dark);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Material Icons ── */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--mauve-light); border-radius: 99px; }
+
+/* ── Utility: Card ── */
+.card {
+  background: var(--bg-white);
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ── Utility: Buttons ── */
+.btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}
+
+.btn-primary {
+  background: var(--plum);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(92, 45, 110, 0.25);
+}
+.btn-primary:hover {
+  background: var(--plum-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(92, 45, 110, 0.35);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-icon:hover {
+  background: var(--plum-mist);
+  color: var(--plum);
+  border-color: var(--mauve-light);
+}
+
+/* ── Utility: Badges ── */
+.badge {
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+
+.badge-success { background: var(--success-soft); color: var(--success); }
+.badge-warning { background: var(--warning-soft); color: var(--warning); }
+.badge-danger  { background: var(--danger-soft);  color: var(--danger);  }
+
+/* ── Utility: Page Title ── */
+.page-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* ── Utility: Form inputs ── */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--plum);
+  background: var(--bg-white);
+  box-shadow: 0 0 0 3px rgba(92, 45, 110, 0.1);
+}
+
+label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
