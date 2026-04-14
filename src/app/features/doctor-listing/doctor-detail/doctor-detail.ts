@@ -52,21 +52,21 @@ export class DoctorDetailComponent implements OnInit {
     if (this.selectedSlot && this.doctor) {
       const saved = localStorage.getItem('currentUser');
       const currentUser = saved ? JSON.parse(saved) : null;
-      const patientId   = currentUser ? String(currentUser.id) : null;
+      const patientId = currentUser ? String(currentUser.id) : null;
       const patientName = currentUser ? currentUser.name : 'Patient';
 
       const today = new Date();
       const dateStr = today.toISOString().split('T')[0];
 
       const newAppointment: any = {
-        patientId:   patientId,
+        patientId: patientId,
         patientName: patientName,
-        doctorId:    String(this.doctor.id),   // ← keep as string, matching db.json
-        doctorName:  this.doctor.name,
-        date:        dateStr,
-        timeSlot:    `${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}`,
-        status:      'pending',
-        createdAt:   today.toISOString()
+        doctorId: String(this.doctor.id), // ← keep as string, matching db.json
+        doctorName: this.doctor.name,
+        date: dateStr,
+        timeSlot: `${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}`,
+        status: 'pending',
+        createdAt: today.toISOString(),
       };
 
       this.appointmentService.bookAppointment(newAppointment).subscribe({
@@ -80,7 +80,7 @@ export class DoctorDetailComponent implements OnInit {
         error: (err) => {
           console.error('Booking error:', err);
           alert('Could not complete booking. Please try again.');
-        }
+        },
       });
     }
   }

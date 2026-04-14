@@ -10,7 +10,7 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './medical-records.html',
-  styleUrl: './medical-records.css'
+  styleUrl: './medical-records.css',
 })
 export class MedicalRecords implements OnInit {
   records: any[] = [];
@@ -25,7 +25,7 @@ export class MedicalRecords implements OnInit {
 
   constructor(
     private recordService: MedicalRecordService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
   ) {}
 
   ngOnInit(): void {
@@ -38,20 +38,29 @@ export class MedicalRecords implements OnInit {
 
   loadAll() {
     this.isLoading = true;
-    forkJoin({
-      records: this.recordService.getPatientRecords(this.currentPatientId),
-      appointments: this.appointmentService.getPatientAppointments(this.currentPatientId)
-    }).subscribe({
-      next: ({ records, appointments }) => {
-        this.records = records;
-        appointments.forEach(a => {
+    this.appointmentService.getPatientAppointments(this.currentPatientId).subscribe({
+      next: (appointments) => {
+        // كل appointment فيه medicalHistory = record
+        this.records = appointments
+          .filter((a) => a.medicalHistory) // بس اللي فيها تاريخ طبي
+          .map((a) => ({
+            id: a.id,
+            appointmentId: a.id,
+            date: a.date,
+            diagnosis: a.medicalHistory?.symptoms, // أو field تاني عندك
+            notes: a.medicalHistory?.chronicDiseases,
+          }));
+
+        appointments.forEach((a) => {
           if (a.prescription?.medicines?.length) {
             this.appointmentsMap[String(a.id)] = a;
           }
         });
         this.isLoading = false;
       },
-      error: () => { this.isLoading = false; }
+      error: () => {
+        this.isLoading = false;
+      },
     });
   }
 
