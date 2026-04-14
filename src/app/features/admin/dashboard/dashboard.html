@@ -2,33 +2,31 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">🏥</span>
+      <i class="bi bi-hospital brand-icon"></i>
       <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
     </div>
     <nav class="sidebar-nav">
-      <a routerLink="/admin/dashboard" class="nav-item active">
-        <span class="nav-icon">📊</span> Dashboard
-      </a>
-      <a routerLink="/admin/doctors" class="nav-item">
-        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
-      </a>
-      <a routerLink="/admin/patients" class="nav-item">
-        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
-      </a>
-      <a routerLink="/admin/appointments" class="nav-item">
-        <span class="nav-icon">📅</span> Appointments
-      </a>
-       <div class="logout-wrapper">
-      <a (click)="logout()" class="nav-item logout-btn">
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-        </span>
-        <span class="nav-text">Logout</span>
-      </a>
-    </div>
+      <div class="nav-links">
+        <a routerLink="/admin/dashboard" class="nav-item active">
+          <i class="bi bi-speedometer2 nav-icon"></i> Dashboard
+        </a>
+        <a routerLink="/admin/doctors" class="nav-item">
+          <i class="bi bi-person-badge nav-icon"></i> Manage Doctors
+        </a>
+        <a routerLink="/admin/patients" class="nav-item">
+          <i class="bi bi-people nav-icon"></i> Manage Patients
+        </a>
+        <a routerLink="/admin/appointments" class="nav-item">
+          <i class="bi bi-calendar3 nav-icon"></i> Appointments
+        </a>
+      </div>
 
+      <div class="nav-bottom">
+        <a (click)="logout()" class="nav-item logout-btn">
+          <i class="bi bi-box-arrow-right nav-icon"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </div>
     </nav>
   </aside>
 
@@ -39,21 +37,18 @@
       <p class="page-subtitle">Overview of the healthcare system</p>
     </header>
 
-    <!-- Loading -->
     <div *ngIf="loading" class="loading-state">
       <div class="spinner"></div>
       <p>Loading statistics...</p>
     </div>
 
-    <!-- Error -->
     <div *ngIf="error" class="error-state">
-      <p>⚠️ {{ error }}</p>
+      <p><i class="bi bi-exclamation-triangle"></i> {{ error }}</p>
     </div>
 
-    <!-- Stats Grid -->
     <div *ngIf="stats && !loading" class="stats-grid">
       <div class="stat-card primary">
-        <div class="stat-icon">👨‍⚕️</div>
+        <div class="stat-icon"><i class="bi bi-person-badge"></i></div>
         <div class="stat-info">
           <span class="stat-value">{{ stats.totalDoctors }}</span>
           <span class="stat-label">Total Doctors</span>
@@ -62,7 +57,7 @@
       </div>
 
       <div class="stat-card secondary">
-        <div class="stat-icon">🧑‍🤝‍🧑</div>
+        <div class="stat-icon"><i class="bi bi-people"></i></div>
         <div class="stat-info">
           <span class="stat-value">{{ stats.totalPatients }}</span>
           <span class="stat-label">Total Patients</span>
@@ -71,7 +66,7 @@
       </div>
 
       <div class="stat-card accent">
-        <div class="stat-icon">📅</div>
+        <div class="stat-icon"><i class="bi bi-calendar3"></i></div>
         <div class="stat-info">
           <span class="stat-value">{{ stats.totalAppointments }}</span>
           <span class="stat-label">Total Appointments</span>
@@ -80,7 +75,7 @@
       </div>
 
       <div class="stat-card success">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon"><i class="bi bi-check-circle"></i></div>
         <div class="stat-info">
           <span class="stat-value">{{ stats.completedAppointments }}</span>
           <span class="stat-label">Completed</span>
@@ -88,36 +83,34 @@
       </div>
     </div>
 
-    <!-- Appointment Status Breakdown -->
     <div *ngIf="stats && !loading" class="status-breakdown">
       <h2 class="section-title">Appointment Status Breakdown</h2>
       <div class="status-cards">
         <div class="status-card pending">
           <span class="status-count">{{ stats.pendingAppointments }}</span>
-          <span class="status-label">⏳ Pending</span>
+          <span class="status-label"><i class="bi bi-hourglass-split"></i> Pending</span>
         </div>
         <div class="status-card confirmed">
           <span class="status-count">{{ stats.confirmedAppointments }}</span>
-          <span class="status-label">✅ Confirmed</span>
+          <span class="status-label"><i class="bi bi-check-circle"></i> Confirmed</span>
         </div>
         <div class="status-card completed">
           <span class="status-count">{{ stats.completedAppointments }}</span>
-          <span class="status-label">🏁 Completed</span>
+          <span class="status-label"><i class="bi bi-flag"></i> Completed</span>
         </div>
         <div class="status-card cancelled">
           <span class="status-count">{{ stats.cancelledAppointments }}</span>
-          <span class="status-label">❌ Cancelled</span>
+          <span class="status-label"><i class="bi bi-x-circle"></i> Cancelled</span>
         </div>
       </div>
     </div>
 
-    <!-- Quick Actions -->
     <div *ngIf="stats && !loading" class="quick-actions">
       <h2 class="section-title">Quick Actions</h2>
       <div class="action-buttons">
-        <a routerLink="/admin/doctors" class="btn btn-primary">➕ Add Doctor</a>
-        <a routerLink="/admin/appointments" class="btn btn-outline">📋 View Appointments</a>
-        <a routerLink="/admin/patients" class="btn btn-outline">👥 View Patients</a>
+        <a routerLink="/admin/doctors" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add Doctor</a>
+        <a routerLink="/admin/appointments" class="btn btn-outline"><i class="bi bi-calendar3"></i> View Appointments</a>
+        <a routerLink="/admin/patients" class="btn btn-outline"><i class="bi bi-people"></i> View Patients</a>
       </div>
     </div>
   </main>

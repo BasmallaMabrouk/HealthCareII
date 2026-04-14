@@ -153,7 +153,7 @@
     {
       "name": "Dr. Badawy Ahmed",
       "email": "Badawy@gmail.com",
-      "password": "123456",
+      "password": "doctor123",
       "phone": "01123665982",
       "specialization": "ENT",
       "experience": 5,
@@ -170,7 +170,7 @@
     {
       "name": "Dr. shahd Khaled",
       "email": "shahd@gmail.com",
-      "password": "147369",
+      "password": "doctor123",
       "phone": "01110699773",
       "specialization": "General Practice",
       "experience": 4,
@@ -193,6 +193,23 @@
       "isActive": true,
       "createdAt": "2026-04-13T20:57:58.888Z",
       "id": "FlzAneArPQQ"
+    },
+    {
+      "name": "Dr .Rofida Ahmed",
+      "email": "rofida@gmail.com",
+      "password": "123456",
+      "phone": "01144758596",
+      "specialization": "Gynecology",
+      "experience": 5,
+      "bio": "Dr .Rofida Ahmed",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "patients": 0,
+      "availableSlots": [],
+      "createdAt": "2026-04-14",
+      "id": "b75N2bVoRl8"
     }
   ],
   "appointments": [

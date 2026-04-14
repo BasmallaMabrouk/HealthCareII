@@ -1,24 +1,32 @@
-
 <div class="admin-layout">
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">🏥</span>
+      <i class="bi bi-hospital brand-icon"></i>
       <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
     </div>
     <nav class="sidebar-nav">
-      <a routerLink="/admin/dashboard" class="nav-item">
-        <span class="nav-icon">📊</span> Dashboard
-      </a>
-      <a routerLink="/admin/doctors" class="nav-item">
-        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
-      </a>
-      <a routerLink="/admin/patients" class="nav-item active">
-        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
-      </a>
-      <a routerLink="/admin/appointments" class="nav-item">
-        <span class="nav-icon">📅</span> Appointments
-      </a>
+      <div class="nav-links">
+        <a routerLink="/admin/dashboard" class="nav-item">
+          <i class="bi bi-speedometer2 nav-icon"></i> Dashboard
+        </a>
+        <a routerLink="/admin/doctors" class="nav-item">
+          <i class="bi bi-person-badge nav-icon"></i> Manage Doctors
+        </a>
+        <a routerLink="/admin/patients" class="nav-item active">
+          <i class="bi bi-people nav-icon"></i> Manage Patients
+        </a>
+        <a routerLink="/admin/appointments" class="nav-item">
+          <i class="bi bi-calendar3 nav-icon"></i> Appointments
+        </a>
+      </div>
+
+      <div class="nav-bottom">
+        <a (click)="logout()" class="nav-item logout-btn">
+          <i class="bi bi-box-arrow-right nav-icon"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </div>
     </nav>
   </aside>
 
@@ -31,13 +39,15 @@
       </div>
     </header>
 
-    <!-- Alerts -->
-    <div *ngIf="successMsg" class="alert alert-success">✅ {{ successMsg }}</div>
-    <div *ngIf="error" class="alert alert-error">⚠️ {{ error }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">
+      <i class="bi bi-check-circle"></i> {{ successMsg }}
+    </div>
+    <div *ngIf="error" class="alert alert-error">
+      <i class="bi bi-exclamation-triangle"></i> {{ error }}
+    </div>
 
-    <!-- Search Bar -->
     <div class="search-bar">
-      <span class="search-icon">🔍</span>
+      <i class="bi bi-search search-icon"></i>
       <input
         type="text"
         [(ngModel)]="searchQuery"
@@ -47,13 +57,11 @@
       />
     </div>
 
-    <!-- Loading -->
     <div *ngIf="loading" class="loading-state">
       <div class="spinner"></div>
       <p>Loading patients...</p>
     </div>
 
-    <!-- Patients Table -->
     <div *ngIf="!loading" class="table-card">
       <div class="table-header">
         <span class="table-title">
@@ -63,7 +71,10 @@
       </div>
 
       <div *ngIf="filteredPatients.length === 0" class="empty-state">
-        <p>🔍 No patients found{{ searchQuery ? ' matching your search' : '' }}.</p>
+        <p>
+          <i class="bi bi-search"></i>
+          No patients found{{ searchQuery ? ' matching your search' : '' }}.
+        </p>
       </div>
 
       <table *ngIf="filteredPatients.length > 0" class="data-table">
@@ -93,7 +104,8 @@
             <td>{{ patient.createdAt | date: 'mediumDate' }}</td>
             <td>
               <span class="status-badge" [class.active]="patient.isActive" [class.inactive]="!patient.isActive">
-                {{ patient.isActive ? '🟢 Active' : '🔴 Inactive' }}
+                <i class="bi" [class.bi-circle-fill]="patient.isActive" [class.bi-circle]="!patient.isActive"></i>
+                {{ patient.isActive ? 'Active' : 'Inactive' }}
               </span>
             </td>
             <td>
@@ -103,7 +115,8 @@
                 [class.btn-activate]="!patient.isActive"
                 (click)="toggleStatus(patient)"
               >
-                {{ patient.isActive ? '🚫 Deactivate' : '✅ Activate' }}
+                <i class="bi" [class.bi-slash-circle]="patient.isActive" [class.bi-check-circle]="!patient.isActive"></i>
+                {{ patient.isActive ? 'Deactivate' : 'Activate' }}
               </button>
             </td>
           </tr>

@@ -73,6 +73,8 @@ body {
   position: fixed;
   height: 100vh;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-brand {
@@ -89,11 +91,27 @@ body {
   font-size: 18px;
 }
 
+/* Nav fills remaining sidebar height and spaces children apart */
 .sidebar-nav {
   padding: 20px 16px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Top nav links */
+.nav-links {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+}
+
+/* Logout pinned at bottom */
+.nav-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
 }
 
 .nav-item {
@@ -106,6 +124,7 @@ body {
   text-decoration: none;
   font-size: 15px;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .nav-item:hover {
@@ -116,6 +135,11 @@ body {
 .nav-item.active {
   background: var(--primary);
   color: #fff;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff8080;
 }
 
 /* ═══════════════════════════════════════

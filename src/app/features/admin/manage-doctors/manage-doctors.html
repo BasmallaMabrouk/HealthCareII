@@ -2,22 +2,31 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">🏥</span>
+      <i class="bi bi-hospital brand-icon"></i>
       <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
     </div>
     <nav class="sidebar-nav">
-      <a routerLink="/admin/dashboard" class="nav-item">
-        <span class="nav-icon">📊</span> Dashboard
-      </a>
-      <a routerLink="/admin/doctors" class="nav-item active">
-        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
-      </a>
-      <a routerLink="/admin/patients" class="nav-item">
-        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
-      </a>
-      <a routerLink="/admin/appointments" class="nav-item">
-        <span class="nav-icon">📅</span> Appointments
-      </a>
+      <div class="nav-links">
+        <a routerLink="/admin/dashboard" class="nav-item">
+          <i class="bi bi-speedometer2 nav-icon"></i> Dashboard
+        </a>
+        <a routerLink="/admin/doctors" class="nav-item active">
+          <i class="bi bi-person-badge nav-icon"></i> Manage Doctors
+        </a>
+        <a routerLink="/admin/patients" class="nav-item">
+          <i class="bi bi-people nav-icon"></i> Manage Patients
+        </a>
+        <a routerLink="/admin/appointments" class="nav-item">
+          <i class="bi bi-calendar3 nav-icon"></i> Appointments
+        </a>
+      </div>
+
+      <div class="nav-bottom">
+        <a (click)="logout()" class="nav-item logout-btn">
+          <i class="bi bi-box-arrow-right nav-icon"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </div>
     </nav>
   </aside>
 
@@ -28,11 +37,17 @@
         <h1>Manage Doctors</h1>
         <p class="page-subtitle">Add, edit, or remove doctors from the system</p>
       </div>
-      <a routerLink="/admin/doctors/add" class="btn btn-primary">➕ Add Doctor</a>
+      <a routerLink="/admin/doctors/add" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add Doctor
+      </a>
     </header>
 
-    <div *ngIf="successMsg" class="alert alert-success">✅ {{ successMsg }}</div>
-    <div *ngIf="error" class="alert alert-error">⚠️ {{ error }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">
+      <i class="bi bi-check-circle"></i> {{ successMsg }}
+    </div>
+    <div *ngIf="error" class="alert alert-error">
+      <i class="bi bi-exclamation-triangle"></i> {{ error }}
+    </div>
 
     <div *ngIf="loading" class="loading-state">
       <div class="spinner"></div>
@@ -45,7 +60,7 @@
       </div>
 
       <div *ngIf="doctors.length === 0" class="empty-state">
-        <p>🩺 No doctors found. Click "Add Doctor" to get started.</p>
+        <p><i class="bi bi-person-badge"></i> No doctors found. Click "Add Doctor" to get started.</p>
       </div>
 
       <table *ngIf="doctors.length > 0" class="data-table">
@@ -63,9 +78,8 @@
         <tbody>
           <ng-container *ngFor="let doctor of doctors; let i = index">
 
-           
             <tr *ngIf="editingDoctorId !== doctor.id">
-            <td>{{ i + 1 }}</td>
+              <td>{{ i + 1 }}</td>
               <td>
                 <div class="doctor-cell">
                   <div class="avatar">{{ doctor.name.charAt(0) }}</div>
@@ -77,27 +91,28 @@
               </td>
               <td><span class="badge badge-spec">{{ doctor.specialization }}</span></td>
               <td>{{ doctor.experience }} yrs</td>
-              <td>{{ doctor.phone }}</td> 
-               <td><span class="rating">⭐ {{ doctor.rating ?? 0 }}</span></td>
+              <td>{{ doctor.phone }}</td>
+              <td><span class="rating"><i class="bi bi-star-fill"></i> {{ doctor.rating ?? 0 }}</span></td>
               <td>
                 <div class="action-group">
-                  <button type="button" class="btn-icon edit" title="Edit" (click)="startEdit(doctor)">✏️</button>
-                  <button type="button" class="btn-icon delete" title="Delete" (click)="deleteDoctor(doctor)">🗑️</button>
+                  <button type="button" class="btn-icon edit" title="Edit" (click)="startEdit(doctor)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button type="button" class="btn-icon delete" title="Delete" (click)="deleteDoctor(doctor)">
+                    <i class="bi bi-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
 
-            <!-- Inline edit row -->
             <tr *ngIf="editingDoctorId === doctor.id" class="edit-row" [formGroup]="doctorForm">
               <td>{{ i + 1 }}</td>
-
               <td>
                 <input class="inline-input" formControlName="name" placeholder="Full name" />
                 <input class="inline-input mt-4" formControlName="email" type="email" placeholder="Email" />
                 <span class="inline-error" *ngIf="fc('name').invalid && fc('name').touched">Name required</span>
                 <span class="inline-error" *ngIf="fc('email').invalid && fc('email').touched">Valid email required</span>
               </td>
-
               <td>
                 <select class="inline-input" formControlName="specialization">
                   <option value="">-- Select --</option>
@@ -105,28 +120,27 @@
                 </select>
                 <span class="inline-error" *ngIf="fc('specialization').invalid && fc('specialization').touched">Required</span>
               </td>
-
               <td>
                 <input class="inline-input inline-sm" formControlName="experience" type="number" min="0" max="60" />
                 <span class="inline-error" *ngIf="fc('experience').invalid && fc('experience').touched">0–60</span>
               </td>
-
               <td>
                 <input class="inline-input" formControlName="phone" placeholder="010xxxxxxxx" />
                 <span class="inline-error" *ngIf="fc('phone').invalid && fc('phone').touched">10–11 digits</span>
               </td>
-
               <td>
                 <textarea class="inline-input" formControlName="bio" rows="2" placeholder="Bio..."></textarea>
                 <span class="inline-error" *ngIf="fc('bio').invalid && fc('bio').touched">Bio required</span>
               </td>
-
               <td>
                 <div class="action-group">
                   <button type="button" class="btn-icon save" title="Save" [disabled]="submitting" (click)="saveEdit(doctor)">
-                    {{ submitting ? '⏳' : '💾' }}
+                    <i *ngIf="!submitting" class="bi bi-floppy"></i>
+                    <i *ngIf="submitting" class="bi bi-hourglass-split"></i>
                   </button>
-                  <button type="button" class="btn-icon cancel" title="Cancel" (click)="cancelEdit()">✕</button>
+                  <button type="button" class="btn-icon cancel" title="Cancel" (click)="cancelEdit()">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
                 </div>
               </td>
             </tr>

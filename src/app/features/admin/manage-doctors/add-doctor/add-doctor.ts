@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../../../core/services/admin';
-import { User } from '../../../../core/models/user.model';
+import { AuthService } from '../../../../core/services/auth';
 import { Doctor } from '../../../../core/models/doctor.model';
 
 @Component({
@@ -28,6 +28,7 @@ export class AddDoctorComponent {
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -41,43 +42,48 @@ export class AddDoctorComponent {
     });
   }
 
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
+
   get f() { return this.form.controls; }
 
   onSubmit(): void {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.submitting = true;
+    this.errorMsg = '';
+
+    const newDoctor: Omit<Doctor, 'id'> = {
+      ...this.form.value,
+      role: 'doctor',
+      isActive: true,
+      rating: 0,
+      reviewCount: 0,
+      patients: 0,
+      availableSlots: [],
+      createdAt: new Date().toISOString().split('T')[0],
+    };
+
+    this.adminService.addDoctor(newDoctor).subscribe({
+      next: () => {
+        this.successMsg = 'Doctor added successfully!';
+        this.submitting = false;
+        setTimeout(() => {
+          this.router.navigate(['/admin/doctors']);
+        }, 1500);
+      },
+      error: () => {
+        this.errorMsg = 'Failed to add doctor. Is json-server running?';
+        this.submitting = false;
+      },
+    });
   }
 
-  this.submitting = true;
-  this.errorMsg = '';
-
-  const newDoctor: Omit<Doctor, 'id'> = {
-    ...this.form.value,
-    role: 'doctor',
-    isActive: true,
-    rating: 0,
-    reviewCount: 0,
-    patients: 0,
-    availableSlots: [],
-    createdAt: new Date().toISOString().split('T')[0],
-  };
-
-  this.adminService.addDoctor(newDoctor).subscribe({
-    next: () => {
-      this.successMsg = 'Doctor added successfully!';
-      this.submitting = false;
-
-      setTimeout(() => {
-        this.router.navigate(['/admin/doctors']);
-      }, 1500);
-    },
-    error: () => {
-      this.errorMsg = 'Failed to add doctor. Is json-server running?';
-      this.submitting = false;
-    },
-  });
-  }
   fc(name: string) {
     return this.form.get(name)!;
   }

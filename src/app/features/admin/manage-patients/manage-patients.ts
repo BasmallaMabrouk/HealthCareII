@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 import { AdminService } from '../../../core/services/admin';
+import { AuthService } from '../../../core/services/auth';
 import { User } from '../../../core/models/user.model';
 
 @Component({
@@ -22,17 +22,25 @@ export class ManagePatientsComponent implements OnInit {
   successMsg = '';
   searchQuery = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.loadPatients();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 
   loadPatients(): void {
     this.loading = true;
     this.adminService.getPatients().subscribe({
       next: data => {
-        // Ensure isActive defaults to true if not set
         this.patients = data.map(p => ({ ...p, isActive: p.isActive !== false }));
         this.filteredPatients = [...this.patients];
         this.loading = false;
@@ -62,7 +70,7 @@ export class ManagePatientsComponent implements OnInit {
       next: updated => {
         const idx = this.patients.findIndex(p => p.id === updated.id);
         if (idx > -1) this.patients[idx] = { ...updated };
-        this.onSearch(); // re-apply filter
+        this.onSearch();
         this.successMsg = `Patient ${action}d successfully.`;
         setTimeout(() => (this.successMsg = ''), 3000);
       },

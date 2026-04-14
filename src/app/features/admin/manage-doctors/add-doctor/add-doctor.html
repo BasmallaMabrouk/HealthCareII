@@ -2,22 +2,31 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">🏥</span>
+      <i class="bi bi-hospital brand-icon"></i>
       <span class="brand-name">DocTime <br><small>Admin Panel</small></span>
     </div>
     <nav class="sidebar-nav">
-      <a routerLink="/admin/dashboard" class="nav-item">
-        <span class="nav-icon">📊</span> Dashboard
-      </a>
-      <a routerLink="/admin/doctors" class="nav-item active">
-        <span class="nav-icon">👨‍⚕️</span> Manage Doctors
-      </a>
-      <a routerLink="/admin/patients" class="nav-item">
-        <span class="nav-icon">🧑‍🤝‍🧑</span> Manage Patients
-      </a>
-      <a routerLink="/admin/appointments" class="nav-item">
-        <span class="nav-icon">📅</span> Appointments
-      </a>
+      <div class="nav-links">
+        <a routerLink="/admin/dashboard" class="nav-item">
+          <i class="bi bi-speedometer2 nav-icon"></i> Dashboard
+        </a>
+        <a routerLink="/admin/doctors" class="nav-item active">
+          <i class="bi bi-person-badge nav-icon"></i> Manage Doctors
+        </a>
+        <a routerLink="/admin/patients" class="nav-item">
+          <i class="bi bi-people nav-icon"></i> Manage Patients
+        </a>
+        <a routerLink="/admin/appointments" class="nav-item">
+          <i class="bi bi-calendar3 nav-icon"></i> Appointments
+        </a>
+      </div>
+
+      <div class="nav-bottom">
+        <a (click)="logout()" class="nav-item logout-btn">
+          <i class="bi bi-box-arrow-right nav-icon"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </div>
     </nav>
   </aside>
 
@@ -31,11 +40,13 @@
       <a routerLink="/admin/doctors" class="btn btn-outline">← Back to Doctors</a>
     </header>
 
-    <!-- Success -->
-    <div *ngIf="successMsg" class="alert alert-success">✅ {{ successMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">
+      <i class="bi bi-check-circle"></i> {{ successMsg }}
+    </div>
 
-    <!-- Error -->
-    <div *ngIf="errorMsg" class="alert alert-error">⚠️ {{ errorMsg }}</div>
+    <div *ngIf="errorMsg" class="alert alert-error">
+      <i class="bi bi-exclamation-triangle"></i> {{ errorMsg }}
+    </div>
 
     <div class="form-card">
       <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
@@ -106,7 +117,7 @@
         <div class="form-actions">
           <a routerLink="/admin/doctors" class="btn btn-outline">Cancel</a>
           <button type="submit" class="btn btn-primary" [disabled]="submitting">
-            {{ submitting ? 'Saving...' : '➕ Add Doctor' }}
+            <i class="bi bi-plus-lg"></i> {{ submitting ? 'Saving...' : 'Add Doctor' }}
           </button>
         </div>
 

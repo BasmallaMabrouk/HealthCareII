@@ -51,7 +51,7 @@ export class ForgotPassword {
           return;
         }
         const user = users[0];
-        this.authService.updatePassword(user.id, newPassword).subscribe({
+        this.authService.updatePassword(String(user.id), newPassword).subscribe({
           next: () => {
             this.isLoading = false;
             this.successMsg = 'Password updated successfully! Redirecting to login...';

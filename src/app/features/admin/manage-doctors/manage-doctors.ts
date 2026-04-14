@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AdminService } from '../../../core/services/admin';
+import { AuthService } from '../../../core/services/auth';
 import { Doctor } from '../../../core/models/doctor.model';
 
 @Component({
@@ -40,6 +41,8 @@ export class ManageDoctorsComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
+    private authService: AuthService,
+    private router: Router,
     private fb: FormBuilder,
   ) {}
 
@@ -47,12 +50,17 @@ export class ManageDoctorsComponent implements OnInit {
     this.loadDoctors();
   }
 
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
+
   loadDoctors(): void {
     this.loading = true;
-
     this.adminService.getDoctors().subscribe({
       next: (data: Doctor[]) => {
-        this.doctors = data;
+        // ✅ Normalize all ids to string on load
+        this.doctors = data.map(d => ({ ...d, id: String(d.id) }));
         this.loading = false;
       },
       error: () => {
@@ -63,7 +71,7 @@ export class ManageDoctorsComponent implements OnInit {
   }
 
   startEdit(doctor: Doctor): void {
-    this.editingDoctorId = doctor.id;
+    this.editingDoctorId = String(doctor.id); // ✅ always string
     this.successMsg = '';
     this.error = '';
 
@@ -89,11 +97,11 @@ export class ManageDoctorsComponent implements OnInit {
     }
 
     this.submitting = true;
-
     const formVal = this.doctorForm.value;
 
     const updated: Doctor = {
       ...doctor,
+      id: String(doctor.id), // ✅ normalize before sending
       name: formVal.name,
       email: formVal.email,
       phone: formVal.phone,
@@ -102,15 +110,16 @@ export class ManageDoctorsComponent implements OnInit {
       bio: formVal.bio,
       patients: doctor.patients ?? 0,
       availableSlots: doctor.availableSlots ?? [],
+      // ✅ password intentionally NOT included here —
+      //    admin.service.updateDoctor() strips it to avoid overwriting
     };
 
-    this.adminService.updateDoctor(doctor.id, updated).subscribe({
+    this.adminService.updateDoctor(String(doctor.id), updated).subscribe({
       next: () => {
         this.successMsg = 'Doctor updated successfully!';
         this.submitting = false;
         this.editingDoctorId = null;
         this.loadDoctors();
-
         setTimeout(() => (this.successMsg = ''), 3000);
       },
       error: () => {
@@ -123,7 +132,7 @@ export class ManageDoctorsComponent implements OnInit {
   deleteDoctor(doctor: Doctor): void {
     if (!confirm(`Are you sure you want to remove Dr. ${doctor.name}?`)) return;
 
-    this.adminService.deleteDoctor(doctor.id).subscribe({
+    this.adminService.deleteDoctor(String(doctor.id)).subscribe({ // ✅ normalize id
       next: () => this.loadDoctors(),
       error: () => {
         this.error = 'Delete failed.';

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { forkJoin } from 'rxjs';
-import { StatusBadgePipe } from '../../../shared/pipes/status-badge-pipe';
-import { Appointment } from '../../../core/models/appointment.model';
+
 import { AdminService } from '../../../core/services/admin';
-
-
+import { AuthService } from '../../../core/services/auth';
+import { StatusBadgePipe } from '../../../shared/pipes/status-badge-pipe';
 
 @Component({
   selector: 'app-manage-appointments',
@@ -17,43 +15,66 @@ import { AdminService } from '../../../core/services/admin';
   styleUrl: './manage-appointments.css',
 })
 export class ManageAppointmentsComponent implements OnInit {
-  allAppointments: Appointment[] = [];
-  filteredAppointments: Appointment[] = [];
+  allAppointments: any[] = [];
+  filteredAppointments: any[] = [];
   loading = true;
   error = '';
-
   filterStatus = 'all';
   searchQuery = '';
 
   statusOptions = ['all', 'pending', 'confirmed', 'completed', 'cancelled'];
 
-  constructor(private adminService: AdminService) {}
+  private patients: any[] = [];
+  private doctors: any[] = [];
+
+  constructor(
+    private adminService: AdminService,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadAll();
   }
 
-  loadData(): void {
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
+
+  loadAll(): void {
     this.loading = true;
-    forkJoin({
-      appointments: this.adminService.getAllAppointments(),
-      users: this.adminService.getAllUsers(),
-    }).subscribe({
-      next: ({ appointments, users }) => {
-        // Enrich appointments with patient and doctor names
-        this.allAppointments = appointments.map(appt => ({
-          ...appt,
-          patientName: users.find(u => u.id === appt.patientId)?.name ?? 'Unknown',
-          doctorName:  users.find(u => u.id === appt.doctorId)?.name  ?? 'Unknown',
-        }));
-        this.applyFilters();
-        this.loading = false;
-      },
-      error: () => {
-        this.error = 'Failed to load appointments.';
-        this.loading = false;
-      },
+
+    // Load patients, doctors, and appointments in parallel
+    Promise.all([
+      this.adminService.getPatients().toPromise(),
+      this.adminService.getDoctors().toPromise(),
+      this.adminService.getAllAppointments().toPromise(),
+    ]).then(([patients, doctors, appointments]) => {
+      this.patients = patients || [];
+      this.doctors  = doctors  || [];
+
+      // Enrich appointments with resolved names
+      this.allAppointments = (appointments || []).map((appt: any) => ({
+        ...appt,
+        patientName: appt.patientName
+          || this.patients.find(p => p.id === appt.patientId)?.name
+          || 'Unknown Patient',
+        doctorName: appt.doctorName
+          || this.doctors.find(d => d.id === appt.doctorId)?.name
+          || 'Unknown Doctor',
+      }));
+
+      this.applyFilters();
+      this.loading = false;
+    }).catch(() => {
+      this.error = 'Failed to load appointments.';
+      this.loading = false;
     });
+  }
+
+  onFilterChange(): void {
+    this.applyFilters();
   }
 
   applyFilters(): void {
@@ -63,30 +84,20 @@ export class ManageAppointmentsComponent implements OnInit {
       result = result.filter(a => a.status === this.filterStatus);
     }
 
-    const q = this.searchQuery.toLowerCase().trim();
-    if (q) {
+    if (this.searchQuery.trim()) {
+      const q = this.searchQuery.toLowerCase().trim();
       result = result.filter(
         a =>
           a.patientName?.toLowerCase().includes(q) ||
           a.doctorName?.toLowerCase().includes(q) ||
-          a.date.includes(q)
+          a.date?.includes(q)
       );
     }
 
     this.filteredAppointments = result;
   }
 
-  onFilterChange(): void {
-    this.applyFilters();
-  }
-
   getStatusClass(status: string): string {
-    const map: Record<string, string> = {
-      pending: 'status-pending',
-      confirmed: 'status-confirmed',
-      completed: 'status-completed',
-      cancelled: 'status-cancelled',
-    };
-    return map[status] ?? '';
+    return `status-${status}`;
   }
 }
