@@ -56,8 +56,14 @@ export class Appointments implements OnInit {
     });
   }
 
-  cancelBooking(id: string) {
+
+
+  cancelBooking(id: string , status: string) {
     if (confirm('Are you sure you want to cancel this appointment?')) {
+      if (status === 'confirmed') {
+    alert('❌ This appointment has already been confirmed by the doctor and cannot be cancelled.');
+    return;
+  }
       this.appointmentService.cancelAppointment(id).subscribe({
         next: () => {
           this.myAppointments = this.myAppointments.filter((a) => a.id !== id);

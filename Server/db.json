@@ -126,7 +126,7 @@
       "id": "4",
       "name": "Mohamed Ali",
       "email": "mohamed@patient.com",
-      "password": "patient123",
+      "password": "patient1234",
       "phone": "01033333333",
       "role": "patient",
       "createdAt": "2026-03-01"
@@ -310,26 +310,6 @@
     },
     {
       "patientId": "4",
-      "doctorId": 3,
-      "doctorName": "Dr. Sara Mohamed",
-      "date": "2026-04-10",
-      "timeSlot": "10:00 - 10:30",
-      "status": "confirmed",
-      "id": "QFYFMWqhgCc"
-    },
-    {
-      "patientId": "4",
-      "patientName": "Mohamed Ali",
-      "doctorId": "3",
-      "doctorName": "Dr. Sara Mohamed",
-      "date": "2026-04-13",
-      "timeSlot": "10:30 - 11:00",
-      "status": "pending",
-      "createdAt": "2026-04-13T20:55:07.014Z",
-      "id": "pU4SQgeFm1Y"
-    },
-    {
-      "patientId": "4",
       "patientName": "Mohamed Ali",
       "doctorId": "2",
       "doctorName": "Dr. Ahmed Hassan",
@@ -338,17 +318,6 @@
       "status": "pending",
       "createdAt": "2026-04-13T20:55:40.791Z",
       "id": "JHVbLU-2cXE"
-    },
-    {
-      "patientId": "FlzAneArPQQ",
-      "patientName": "Aya Abdulaziz_test2",
-      "doctorId": "2",
-      "doctorName": "Dr. Ahmed Hassan",
-      "date": "2026-04-13",
-      "timeSlot": "09:00 - 09:30",
-      "status": "pending",
-      "createdAt": "2026-04-13T20:58:51.299Z",
-      "id": "73VwqcoXYZs"
     },
     {
       "patientId": "4",
@@ -360,6 +329,17 @@
       "status": "pending",
       "createdAt": "2026-04-13T21:39:08.620Z",
       "id": "AZ_jq9pc3Lk"
+    },
+    {
+      "patientId": "FlzAneArPQQ",
+      "patientName": "Aya Abdulaziz_test2",
+      "doctorId": "2",
+      "doctorName": "Dr. Ahmed Hassan",
+      "date": "2026-04-14",
+      "timeSlot": "09:00 - 09:30",
+      "status": "pending",
+      "createdAt": "2026-04-14T20:15:54.959Z",
+      "id": "hFYPbb8xdOg"
     }
   ],
   "prescriptions": [

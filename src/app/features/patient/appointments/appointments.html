@@ -42,7 +42,7 @@
       </div>
 
       <div class="card-actions" *ngIf="app.status !== 'cancelled'">
-        <button class="cancel-btn" (click)="cancelBooking(app.id)">Cancel</button>
+        <button class="cancel-btn" (click)="cancelBooking(app.id, app.status)">Cancel</button>
       </div>
     </div>
   </div>
