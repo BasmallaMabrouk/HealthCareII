@@ -1,6 +1,3 @@
-
-
-
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
   ElementRef, NgZone
@@ -81,6 +78,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setupHeroSpotlight();
       this.setupParticles();
       this.setupMagneticButtons();
+      // ── NEW creative additions ──
+      this.setupFloatingMedicalIcons();
+      this.setupBgGrid();
     });
   }
 
@@ -395,6 +395,114 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         if (step >= steps) clearInterval(interval);
       }, (duration + i * 150) / steps);
     });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     FLOATING MEDICAL ICONS  — 6 SVG icons with unique orbit paths
+  ══════════════════════════════════════════════════════════════ */
+  private setupFloatingMedicalIcons(): void {
+    const container = this.el.nativeElement.querySelector('.floating-icons') as HTMLElement;
+    if (!container) return;
+
+    // Each icon: { svg markup, size px, top%, left%, initial rotation }
+    const icons = [
+      {
+        size: 44,
+        top: 18, left: 12,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>`  // clock
+      },
+      {
+        size: 52,
+        top: 60, left: 6,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>`  // ECG/activity
+      },
+      {
+        size: 40,
+        top: 30, left: 82,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>`  // shield
+      },
+      {
+        size: 48,
+        top: 72, left: 75,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>`  // heart
+      },
+      {
+        size: 38,
+        top: 12, left: 55,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>`  // plus / cross
+      },
+      {
+        size: 50,
+        top: 80, left: 40,
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+        </svg>`  // calendar
+      }
+    ];
+
+    icons.forEach((icon) => {
+      const wrapper    = document.createElement('div');
+      wrapper.className = 'float-icon';
+      wrapper.innerHTML = icon.svg;
+      wrapper.style.cssText = `
+        width:  ${icon.size}px;
+        height: ${icon.size}px;
+        top:    ${icon.top}%;
+        left:   ${icon.left}%;
+      `;
+      container.appendChild(wrapper);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     ANIMATED BACKGROUND GRID  — dots + lines that randomly glow
+  ══════════════════════════════════════════════════════════════ */
+  private setupBgGrid(): void {
+    const grid = this.el.nativeElement.querySelector('.bg-grid') as HTMLElement;
+    if (!grid) return;
+
+    const cols = 9;
+    const rows = 5;
+
+    // Horizontal lines
+    for (let r = 1; r < rows; r++) {
+      const line    = document.createElement('div');
+      line.className = 'grid-line-h';
+      line.style.top = `${(r / rows) * 100}%`;
+      grid.appendChild(line);
+    }
+    // Vertical lines
+    for (let c = 1; c < cols; c++) {
+      const line    = document.createElement('div');
+      line.className = 'grid-line-v';
+      line.style.left = `${(c / cols) * 100}%`;
+      grid.appendChild(line);
+    }
+    // Glowing nodes at intersections
+    for (let r = 1; r < rows; r++) {
+      for (let c = 1; c < cols; c++) {
+        const node    = document.createElement('div');
+        node.className = 'grid-node';
+        node.style.top       = `calc(${(r / rows) * 100}% - 1.5px)`;
+        node.style.left      = `calc(${(c / cols) * 100}% - 1.5px)`;
+        node.style.animationDelay    = `${Math.random() * 6}s`;
+        node.style.animationDuration = `${Math.random() * 3 + 3}s`;
+        grid.appendChild(node);
+      }
+    }
   }
 
   /* ── Navigation ─────────────────────────────────────────────── */
