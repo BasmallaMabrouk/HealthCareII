@@ -5,40 +5,35 @@ import { Doctor } from '../../core/models/doctor.model';
 import { Appointment, MedicalHistory, Prescription } from '../../core/models/appointment.model';
 import { User } from '../../core/models/user.model';
 
-@Injectable({
-  providedIn: 'root',
-})
-
-
+@Injectable({ providedIn: 'root' })
 export class DoctorService {
-  private api = 'http://localhost:3000/users';
+  private usersApi = 'http://localhost:3000/users';
+  private appointmentsApi = 'http://localhost:3000/appointments'; // ✅ منفصل
 
   constructor(private http: HttpClient) {}
 
   // ─── Doctor ───────────────────────────────────────────────
   getDoctorProfile(id: string): Observable<Doctor> {
-   return this.http.get<Doctor>(`${this.api}/${id}`);
+    return this.http.get<Doctor>(`${this.usersApi}/${id}`);
   }
 
   updateDoctorProfile(id: string, data: Partial<Doctor>): Observable<Doctor> {
-    return this.http.put<Doctor>(`${this.api}/${id}`, data);
+    return this.http.patch<Doctor>(`${this.usersApi}/${id}`, data); // ✅ PATCH مش PUT
   }
 
   // ─── Appointments ─────────────────────────────────────────
-  // json-server v1 مش بيعمل filter بـ query params صح
-  // فبنجيب الكل ونعمل filter على client side
   getDoctorAppointments(doctorId: string): Observable<Appointment[]> {
     return this.http
-      .get<Appointment[]>(`${this.api}/appointments`)
+      .get<Appointment[]>(`${this.appointmentsApi}`) // ✅ صح
       .pipe(map((appts) => appts.filter((a) => String(a.doctorId) === String(doctorId))));
   }
 
   getAppointmentById(id: string): Observable<Appointment> {
-    return this.http.get<Appointment>(`${this.api}/appointments/${id}`);
+    return this.http.get<Appointment>(`${this.appointmentsApi}/${id}`); // ✅
   }
 
   updateAppointmentStatus(id: string, status: string): Observable<Appointment> {
-    return this.http.patch<Appointment>(`${this.api}/appointments/${id}`, { status });
+    return this.http.patch<Appointment>(`${this.appointmentsApi}/${id}`, { status }); // ✅
   }
 
   // ─── Medical History ──────────────────────────────────────
@@ -46,9 +41,9 @@ export class DoctorService {
     appointmentId: string,
     medicalHistory: MedicalHistory,
   ): Observable<Appointment> {
-    return this.http.patch<Appointment>(`${this.api}/appointments/${appointmentId}`, {
+    return this.http.patch<Appointment>(`${this.appointmentsApi}/${appointmentId}`, {
       medicalHistory,
-    });
+    }); // ✅
   }
 
   // ─── Prescription ─────────────────────────────────────────
@@ -57,9 +52,9 @@ export class DoctorService {
   }
 
   updatePrescription(appointmentId: string, prescription: Prescription): Observable<Appointment> {
-    return this.http.patch<Appointment>(`${this.api}/appointments/${appointmentId}`, {
+    return this.http.patch<Appointment>(`${this.appointmentsApi}/${appointmentId}`, {
       prescription,
-    });
+    }); // ✅
   }
 
   deleteMedicine(
@@ -76,36 +71,29 @@ export class DoctorService {
 
   // ─── Patients ─────────────────────────────────────────────
   getPatient(id: string): Observable<User> {
-    return this.http.get<User>(`${this.api}/users/${id}`);
+    return this.http.get<User>(`${this.usersApi}/${id}`); // ✅ مش usersApi/users/id
   }
 
   getAllPatients(): Observable<User[]> {
     return this.http
-      .get<User[]>(`${this.api}/users`)
+      .get<User[]>(`${this.usersApi}`)
       .pipe(map((users) => users.filter((u) => u.role === 'patient')));
   }
 
-
-
+  // ─── Doctors ──────────────────────────────────────────────
   getDoctors(): Observable<Doctor[]> {
     const params = new HttpParams().set('role', 'doctor');
-    return this.http.get<Doctor[]>(this.api, { params });
+    return this.http.get<Doctor[]>(this.usersApi, { params });
   }
 
   searchDoctors(name: string, specialty: string): Observable<Doctor[]> {
     let params = new HttpParams().set('role', 'doctor');
-
-    if (name) {
-      params = params.set('name_like', name);
-    }
-    if (specialty && specialty !== 'All') {
-      params = params.set('specialization', specialty);
-    }
-
-    return this.http.get<Doctor[]>(this.api, { params });
+    if (name) params = params.set('name_like', name);
+    if (specialty && specialty !== 'All') params = params.set('specialization', specialty);
+    return this.http.get<Doctor[]>(this.usersApi, { params });
   }
 
   getDoctorById(id: string): Observable<Doctor> {
-    return this.http.get<Doctor>(`${this.api}/${id}`);
+    return this.http.get<Doctor>(`${this.usersApi}/${id}`);
   }
 }

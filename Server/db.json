@@ -210,6 +210,41 @@
       "availableSlots": [],
       "createdAt": "2026-04-14",
       "id": "b75N2bVoRl8"
+    },
+    {
+      "availableSlots": [
+        {
+          "day": "Sunday",
+          "startTime": "11:00",
+          "endTime": "00:00",
+          "isBooked": false
+        }
+      ],
+      "id": "tbmWPXYf_jU"
+    },
+    {
+      "name": "Basmalla Mabrouk Mostafa",
+      "email": "basmallamabrouk@gmail.com",
+      "password": "123456",
+      "phone": "01120013040",
+      "specialization": "Urology",
+      "experience": 22,
+      "bio": "اشطر دكتور",
+      "role": "doctor",
+      "isActive": true,
+      "rating": 0,
+      "reviewCount": 0,
+      "patients": 0,
+      "availableSlots": [
+        {
+          "day": "Sunday",
+          "startTime": "12:30",
+          "endTime": "13:30",
+          "isBooked": false
+        }
+      ],
+      "createdAt": "2026-04-14",
+      "id": "UXCA8nTtYd0"
     }
   ],
   "appointments": [
@@ -346,7 +381,7 @@
       "doctorName": "Dr. Ahmed Hassan",
       "date": "2026-04-13",
       "timeSlot": "09:00 - 09:30",
-      "status": "pending",
+      "status": "confirmed",
       "createdAt": "2026-04-13T20:58:51.299Z",
       "id": "73VwqcoXYZs"
     },
@@ -360,6 +395,58 @@
       "status": "pending",
       "createdAt": "2026-04-13T21:39:08.620Z",
       "id": "AZ_jq9pc3Lk"
+    },
+    {
+      "patientId": "6",
+      "patientName": "Ali Hassan",
+      "doctorId": "2",
+      "doctorName": "Dr. Ahmed Hassan",
+      "date": "2026-04-14",
+      "timeSlot": "09:30 - 10:00",
+      "status": "pending",
+      "createdAt": "2026-04-14T09:09:31.219Z",
+      "id": "ac4b0sqMLnY"
+    },
+    {
+      "patientId": "FlzAneArPQQ",
+      "patientName": "Aya Abdulaziz_test2",
+      "doctorId": "UXCA8nTtYd0",
+      "doctorName": "Basmalla Mabrouk Mostafa",
+      "date": "2026-04-14",
+      "timeSlot": "12:30 - 13:30",
+      "status": "completed",
+      "createdAt": "2026-04-14T10:30:36.484Z",
+      "id": "tjm5kBCf-uA",
+      "prescription": {
+        "notes": "راحه البال (الابتعاد عن البرمجه)",
+        "medicines": [
+          {
+            "id": "m1776162656596h3d",
+            "name": "بنادول اكسترا",
+            "dose": "100",
+            "frequency": "1",
+            "duration": "7ايام"
+          }
+        ]
+      },
+      "medicalHistory": {
+        "symptoms": "الام في الضهر والنفسيه",
+        "allergies": "الابتعاد عن اللاب",
+        "chronicDiseases": "لا يوجد",
+        "previousSurgeries": "لا يوجد",
+        "currentMedications": "لا يوجد"
+      }
+    },
+    {
+      "patientId": "FlzAneArPQQ",
+      "patientName": "Aya Abdulaziz_test2",
+      "doctorId": "UXCA8nTtYd0",
+      "doctorName": "Basmalla Mabrouk Mostafa",
+      "date": "2026-04-14",
+      "timeSlot": "12:30 - 13:30",
+      "status": "confirmed",
+      "createdAt": "2026-04-14T11:19:02.646Z",
+      "id": "eLA5iOu2rdc"
     }
   ],
   "prescriptions": [
